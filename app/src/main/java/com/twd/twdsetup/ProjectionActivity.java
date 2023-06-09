@@ -2,6 +2,7 @@ package com.twd.twdsetup;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,16 +14,31 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintStream;
 /**
  * 投影方式 二级菜单
  * 四个方式单选 选中项显示在上层菜单中
  */
-public class ProjectionActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
+public class ProjectionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private RelativeLayout pos_pos;//正装正投
-    private RelativeLayout pos_neg;//正装背投
-    private RelativeLayout neg_pos;//吊装正投
-    private RelativeLayout neg_neg;//吊装背投
+    private static final String TAG = "ProjectionActivity";
+    private static final String PATH_CONTROL_MIPI = "/sys/ir/control_mipi";
+    private static final String PATH_DEV_PRO_INFO = "/dev/pro_info";
+	private static final int VALUE_POSITIVE_DRESS = 0;
+    private static final int VALUE_DRESSING_REAR = 2;
+    private static final int VALUE_HOISTING_FRONT = 3;
+    private static final int VALUE_HOISTING_REAR = 1;
+	
+    private RelativeLayout pos_pos;//正装正投   //0
+    private RelativeLayout pos_neg;//正装背投   //2
+    private RelativeLayout neg_pos;//吊装正投   //3
+    private RelativeLayout neg_neg;//吊装背投   //1
+
+    private RelativeLayout background;
 
     private ImageView sel_pos_pos;
     private ImageView sel_pos_neg;
@@ -58,6 +74,7 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         pos_neg = (RelativeLayout) findViewById(R.id.pro_pos_neg);
         neg_pos = (RelativeLayout) findViewById(R.id.pro_neg_pos);
         neg_neg = (RelativeLayout) findViewById(R.id.pro_neg_neg);
+        background = (RelativeLayout) findViewById(R.id.background);
 
         tv_pos_pos = (TextView) findViewById(R.id.tv_pos_pos);
         tv_pos_neg = (TextView) findViewById(R.id.tv_pos_neg);
@@ -65,13 +82,25 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         tv_neg_neg = (TextView) findViewById(R.id.tv_neg_neg);
 
         sel_pos_pos = (ImageView) findViewById(R.id.sel_pos_pos);
-        sel_pos_pos.setImageResource(R.drawable.selected);
+   //     sel_pos_pos.setImageResource(R.drawable.selected);
         sel_pos_neg = (ImageView) findViewById(R.id.sel_pos_neg);
         sel_neg_pos = (ImageView) findViewById(R.id.sel_neg_pos);
         sel_neg_neg = (ImageView) findViewById(R.id.sel_neg_neg);
 
+        int mode = readProjectionValue(PATH_DEV_PRO_INFO);
+        if (mode == VALUE_POSITIVE_DRESS) {
+            sel_pos_pos.setImageResource(R.drawable.selected);
+        } else if (mode == VALUE_DRESSING_REAR) {
+            sel_pos_neg.setImageResource(R.drawable.selected);
+        } else if (mode == VALUE_HOISTING_FRONT) {
+            sel_neg_pos.setImageResource(R.drawable.selected);
+        } else if (mode == VALUE_HOISTING_REAR) {
+            sel_neg_neg.setImageResource(R.drawable.selected);
+        } else {
+            sel_pos_pos.setImageResource(R.drawable.selected);
+        }
         //读取上次保存的数据
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+/*        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean pos_pos_isChecked = prefs.getBoolean(POS_POS,false);
         if (pos_pos_isChecked) sel_pos_pos.setImageResource(R.drawable.selected); else sel_pos_pos.setImageResource(R.drawable.unselected);
 
@@ -83,16 +112,56 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
 
         boolean neg_neg_isChecked = prefs.getBoolean(NEG_NEG,false);
         if (neg_neg_isChecked) sel_neg_neg.setImageResource(R.drawable.selected);
-
+*/
         pos_pos.setOnClickListener(this);
         pos_neg.setOnClickListener(this);
         neg_pos.setOnClickListener(this);
         neg_neg.setOnClickListener(this);
 
-        pos_pos.setOnFocusChangeListener(this);
-        pos_neg.setOnFocusChangeListener(this);
-        neg_pos.setOnFocusChangeListener(this);
-        neg_neg.setOnFocusChangeListener(this);
+        pos_pos.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackgroundResource(R.drawable.test_red);
+                    background.setBackgroundResource(R.drawable.bg_pos_pos);
+                } else {
+                    v.setBackgroundResource(R.drawable.test);
+                }
+            }
+        });
+        pos_neg.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackgroundResource(R.drawable.test_red);
+                    background.setBackgroundResource(R.drawable.bg_pos_neg);
+                } else {
+                    v.setBackgroundResource(R.drawable.test);
+                }
+            }
+        });
+        neg_pos.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackgroundResource(R.drawable.test_red);
+                    background.setBackgroundResource(R.drawable.bg_neg_pos);
+                } else {
+                    v.setBackgroundResource(R.drawable.test);
+                }
+            }
+        });
+        neg_neg.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.setBackgroundResource(R.drawable.test_red);
+                    background.setBackgroundResource(R.drawable.bg_neg_neg);
+                } else {
+                    v.setBackgroundResource(R.drawable.test);
+                }
+            }
+        });
 
     }
 
@@ -118,37 +187,103 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
                 isChecked[0] = true; isChecked[1] = false; isChecked[2] = false; isChecked[3] = false;
                 setSelect(isChecked);
                 setItemsBoolean(true,false,false,false);
+				setProjectionMode(VALUE_POSITIVE_DRESS);
                 break;
             case R.id.pro_pos_neg:
                 setSelImageSource(R.drawable.unselected, R.drawable.selected, R.drawable.unselected, R.drawable.unselected);
                 isChecked[0] = false; isChecked[1] = true; isChecked[2] = false; isChecked[3] = false;
                 setSelect(isChecked);
                 setItemsBoolean(false,true,false,false);
+				setProjectionMode(VALUE_DRESSING_REAR);
                 break;
             case R.id.pro_neg_pos:
                 setSelImageSource(R.drawable.unselected, R.drawable.unselected, R.drawable.selected, R.drawable.unselected);
                 isChecked[0] = false; isChecked[1] = false; isChecked[2] = true; isChecked[3] = false;
                 setSelect(isChecked);
                 setItemsBoolean(false,false,true,false);
+				setProjectionMode(VALUE_HOISTING_FRONT);
                 break;
             case R.id.pro_neg_neg:
                 setSelImageSource(R.drawable.unselected, R.drawable.unselected, R.drawable.unselected, R.drawable.selected);
                 isChecked[0] = false; isChecked[1] = false; isChecked[2] = false; isChecked[3] = true;
                 setSelect(isChecked);
                 setItemsBoolean(false,false,false,true);
+				setProjectionMode(VALUE_HOISTING_REAR);
                 break;
         }
     }
 
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            v.setBackgroundResource(R.drawable.test_red);
-        } else {
-            v.setBackgroundResource(R.drawable.test);
-        }
+	public static void setProjectionMode(int mode) {
+    	
+    	writeFile(PATH_CONTROL_MIPI, String.valueOf(mode));
+    	writeFile(PATH_DEV_PRO_INFO, String.valueOf(mode));
     }
+    private static int readProjectionValue(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new FileReader(file));
+                int read = reader.read();
+                Log.d(TAG, "read " + path + ": " + read);
+                if (read != -1) {
+                    return read - '0';
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Read " + path + ": error", e);
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            Log.w(TAG, path + " is not exist");
+        }
+        Log.i(TAG, "read " + path + ": defalut 0");
+        return 0;
+    }
+	private static boolean writeFile(String path, String content) {
+        boolean flag = true;
+        FileOutputStream out = null;
+        PrintStream p = null;
+        File file = new File(path);
+        if (file.exists()) {
+            try {
+                out = new FileOutputStream(path);
+                p = new PrintStream(out);
+                p.print(content);
+                Log.i(TAG, "Write " + path + ": " + content);
+            } catch (Exception e) {
+                flag = false;
+                Log.e(TAG, "Write " + path + ": error", e);
+                e.printStackTrace();
+            } finally {
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
+                    }
+                }
+                if (p != null) {
+                    try {
+                        p.close();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            Log.w(TAG, path + " is not exist");
+        }
+        return flag;
+    }
+
 
     /**
      * 设置被选中时的选中图标

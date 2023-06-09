@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/trape_background">
+
+    <ImageView
+        android:id="@+id/iv_trapezoidal01"
+        android:layout_width="@dimen/doublePoint_iv_width"
+        android:layout_height="@dimen/doublePoint_iv_height"
+        android:src="@mipmap/trape_tips"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:src="@mipmap/arrow_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/double_arrow_vertical_marginLeft"
+        android:layout_marginBottom="@dimen/double_arrow_vertical_marginTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0,0"
+        android:textSize="@dimen/size_textLevel_textSize"
+        android:layout_marginLeft="@dimen/double_tv_vertical_marginLeft"
+        android:layout_marginBottom="@dimen/double_tv_vertical_marginBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_arrow_horizontal"
+        android:src="@mipmap/arrow_horizontl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/double_arrow_horizontal_marginLeft"
+        android:layout_marginBottom="@dimen/double_arrow_horizontal_marginBottom"
+        app:layout_constraintStart_toStartOf="@+id/tv_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/double_tv_horizontal_marginLeft"
+        android:layout_marginBottom="@dimen/double_tv_horizontal_marginBottom"
+        android:text="0,0"
+        android:textSize="@dimen/size_textLevel_textSize"
+        app:layout_constraintStart_toStartOf="@+id/iv_arrow_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

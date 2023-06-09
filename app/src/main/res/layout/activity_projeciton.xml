@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,128 +8,127 @@
         android:id="@+id/title_projection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/projection_title_marginTop"
         android:text="投影方式"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="@dimen/projection_title_textSize"
         android:textStyle="bold"
-        android:paddingLeft="420dp"/>
+        android:gravity="center"/>
 
     <LinearLayout
-        android:layout_width="500dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/projection_LL_marginTop"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
 
         <RelativeLayout
             android:id="@+id/pro_pos_pos"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/projection_RL_width"
+            android:layout_height="@dimen/projection_RL_height"
             android:background="@drawable/test"
             android:focusable="true">
 
             <TextView
                 android:id="@+id/tv_pos_pos"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:paddingTop="12dp"
-                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/projection_tv_height"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="正装正投"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/sel_pos_pos"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="350dp"
-                android:layout_marginTop="15dp" />
+                android:layout_width="@dimen/projection_iv_width"
+                android:layout_height="@dimen/projection_iv_height"
+                android:layout_marginStart="@dimen/projection_iv_marginStart"
+                android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/pro_pos_neg"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/projection_RL_width"
+            android:layout_height="@dimen/projection_RL_height"
             android:background="@drawable/test"
             android:focusable="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="@dimen/projection_RL_marginTop">
 
             <TextView
                 android:id="@+id/tv_pos_neg"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:paddingTop="12dp"
-                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/projection_tv_height"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="正装背投"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/sel_pos_neg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="350dp"
-                android:layout_marginTop="15dp" />
+                android:layout_width="@dimen/projection_iv_width"
+                android:layout_height="@dimen/projection_iv_height"
+                android:layout_marginStart="@dimen/projection_iv_marginStart"
+                android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/pro_neg_pos"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/projection_RL_width"
+            android:layout_height="@dimen/projection_RL_height"
             android:background="@drawable/test"
             android:focusable="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="@dimen/projection_RL_marginTop">
 
             <TextView
                 android:id="@+id/tv_neg_pos"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:paddingTop="12dp"
-                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/projection_tv_height"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="吊装正投"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/sel_neg_pos"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="350dp"
-                android:layout_marginTop="15dp" />
+                android:layout_width="@dimen/projection_iv_width"
+                android:layout_height="@dimen/projection_iv_height"
+                android:layout_marginStart="@dimen/projection_iv_marginStart"
+                android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/pro_neg_neg"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/projection_RL_width"
+            android:layout_height="@dimen/projection_RL_height"
             android:background="@drawable/test"
             android:focusable="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="@dimen/projection_RL_marginTop">
 
             <TextView
                 android:id="@+id/tv_neg_neg"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:paddingTop="12dp"
-                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/projection_tv_height"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="吊装背投"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/sel_neg_neg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="350dp"
-                android:layout_marginTop="15dp" />
+                android:layout_width="@dimen/projection_iv_width"
+                android:layout_height="@dimen/projection_iv_height"
+                android:layout_marginStart="@dimen/projection_iv_marginStart"
+                android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
     </LinearLayout>

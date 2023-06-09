@@ -1,15 +1,20 @@
 package com.twd.twdsetup;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.twd.twdsetup.keystone.keystone;
+import com.twd.twdsetup.keystone.keystoneOnePoint;
+import com.twd.twdsetup.keystone.keystoneTwoPoint;
 
 public class TrapezoidalSinglePointActivity extends AppCompatActivity implements View.OnFocusChangeListener , View.OnKeyListener {
 
@@ -18,12 +23,38 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
     private ImageView single_left_down;
     private ImageView single_right_down;
 
-    private boolean dot_canMoved = true;
+    private TextView text_left_up;
+    private TextView text_right_up;
+    private TextView text_left_down;
+    private TextView text_right_down;
+    private TextView textView;
 
+    private boolean dot_canMoved = false;
+    private keystoneOnePoint mKeystone;
+    private static int nowPoint = 0;
+
+    protected static SharedPreferences prefsDotValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trapezoidal_single_point);
+        initView();
+        nowPoint = 0;
+        mKeystone = new keystoneOnePoint(this);
+        SharedPreferences prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
+        int mode = prefs.getInt("mode",0);
+
+        if(mode == 1){
+            mKeystone.restoreKeystone();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("mode",0);
+            editor.apply();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initView();
     }
 
@@ -32,6 +63,18 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         single_right_up = (ImageView) findViewById(R.id.iv_single_right_up);
         single_left_down = (ImageView) findViewById(R.id.iv_single_left_down);
         single_right_down = (ImageView) findViewById(R.id.iv_single_right_down);
+
+        text_left_up = (TextView) findViewById(R.id.tv_single_left_up);
+        text_right_up = (TextView) findViewById(R.id.tv_single_right_up);
+        text_left_down = (TextView) findViewById(R.id.tv_single_left_down);
+        text_right_down = (TextView) findViewById(R.id.tv_single_right_down);
+        //读取数据
+        prefsDotValue = this.getSharedPreferences("single_text_value",MODE_PRIVATE);
+        text_left_up.setText(prefsDotValue.getString("text_left_up","0"));
+        text_right_up.setText(prefsDotValue.getString("text_right_up","0"));
+        text_left_down.setText(prefsDotValue.getString("text_left_down","0"));
+        text_right_down.setText(prefsDotValue.getString("text_right_down","0"));
+
 
         single_left_up.setOnFocusChangeListener(this);
         single_right_up.setOnFocusChangeListener(this);
@@ -68,6 +111,13 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         single_left_down.setImageResource(left_down);
         single_right_down.setImageResource(right_down);
     }
+
+    private void setTextVisible(int luVisible,int ruVisible,int ldVisible,int rdVisible){
+        text_left_up.setVisibility(luVisible);
+        text_right_up.setVisibility(ruVisible);
+        text_left_down.setVisibility(ldVisible);
+        text_right_down.setVisibility(rdVisible);
+    }
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus){
@@ -75,18 +125,70 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
                 case R.id.iv_single_left_up:
                     //焦点在左上
                     setImageResource(R.drawable.trape_dot,R.drawable.unselected,R.drawable.unselected,R.drawable.unselected);
+                    setTextVisible(View.VISIBLE,View.GONE,View.GONE,View.GONE);
                     break;
                 case R.id.iv_single_right_up:
                     //焦点在右上
                     setImageResource(R.drawable.unselected,R.drawable.trape_dot,R.drawable.unselected,R.drawable.unselected);
+                    setTextVisible(View.GONE,View.VISIBLE,View.GONE,View.GONE);
                     break;
                 case R.id.iv_single_left_down:
                     //焦点在左下
                     setImageResource(R.drawable.unselected,R.drawable.unselected,R.drawable.trape_dot,R.drawable.unselected);
+                    setTextVisible(View.GONE,View.GONE,View.VISIBLE,View.GONE);
                     break;
                 case R.id.iv_single_right_down:
                     //焦点在右下
                     setImageResource(R.drawable.unselected,R.drawable.unselected,R.drawable.unselected,R.drawable.trape_dot);
+                    setTextVisible(View.GONE,View.GONE,View.GONE,View.VISIBLE);
+                    break;
+            }
+        }
+    }
+
+    private void saveTextValue(String DotName,String value){
+        SharedPreferences.Editor editor = getSharedPreferences("single_text_value",MODE_PRIVATE).edit();
+        editor.putString(DotName,value);
+        editor.apply();
+    }
+
+    private void updateText(View currentFocus,int id){
+        if ( currentFocus != null){
+            String name = String.valueOf(id);
+            Log.i("TAG","---------"+name);
+//            if (id == R.id.iv_single_left_up){
+//                Log.i("左上","-------------左上----------");
+//                text_left_up.setText(mKeystone.getOnePointInfo(nowPoint));
+//            } else if (id == R.id.iv_single_right_up) {
+//                Log.i("右上","-------------右上----------");
+//                text_right_up.setText(mKeystone.getOnePointInfo(nowPoint));
+//            } else if (id == R.id.tv_single_left_down) {
+//                Log.i("左下","-------------左下----------");
+//                text_left_down.setText(mKeystone.getOnePointInfo(nowPoint));
+//            } else if (id == R.id.tv_single_right_down) {
+//                Log.i("右下","------------右下-----------------");
+//                text_right_down.setText(mKeystone.getOnePointInfo(nowPoint));
+//            }
+            switch (id) {
+                case R.id.iv_single_left_up:
+                    Log.i("左上","-------------左上----------");
+                    text_left_up.setText(mKeystone.getOnePointInfo(nowPoint));
+                    saveTextValue("text_left_up",mKeystone.getOnePointInfo(nowPoint));
+                    break;
+                case R.id.iv_single_right_up:
+                    Log.i("右上","-------------右上----------");
+                    text_right_up.setText(mKeystone.getOnePointInfo(nowPoint));
+                    saveTextValue("text_right_up",mKeystone.getOnePointInfo(nowPoint));
+                    break;
+                case R.id.iv_single_left_down:
+                    Log.i("左下","-------------左下----------");
+                    text_left_down.setText(mKeystone.getOnePointInfo(nowPoint));
+                    saveTextValue("text_left_down",mKeystone.getOnePointInfo(nowPoint));
+                    break;
+                case R.id.iv_single_right_down:
+                    Log.i("右下","------------右下-----------------");
+                    text_right_down.setText(mKeystone.getOnePointInfo(nowPoint));
+                    saveTextValue("text_right_down",mKeystone.getOnePointInfo(nowPoint));
                     break;
             }
         }
@@ -96,38 +198,69 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         Log.i("function:onKey()","进onKey,keycode:"+keyCode);
         if (event.getAction() == KeyEvent.ACTION_DOWN){
-            if (!dot_canMoved){
                 Log.i("function:onKey()","焦点不可移动，执行自定义方法");
+                View view = getCurrentFocus();
+                int focusId = view.getId();
                 switch (keyCode){
                     case KeyEvent.KEYCODE_DPAD_LEFT:
                         Log.i("function:onKey()","执行左键方法,dot_canMoved:"+dot_canMoved);
-                        goLeft();
+                        mKeystone.oneLeft(nowPoint);
+                        updateText(view,focusId);
                         return true;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
                         Log.i("function:onKey()","执行右键方法,dot_canMoved:"+dot_canMoved);
-                        goRight();
+                        mKeystone.oneRight(nowPoint);
+                        updateText(view,focusId);
                         return true;
                     case KeyEvent.KEYCODE_DPAD_UP:
                         Log.i("function:onKey()","执行上键方法,dot_canMoved:"+dot_canMoved);
-                        goUp();
+                        mKeystone.oneTop(nowPoint);
+                        updateText(view,focusId);
                         return true;
                     case KeyEvent.KEYCODE_DPAD_DOWN:
                         Log.i("function:onKey()","执行下键方法,dot_canMoved:"+dot_canMoved);
-                        goDown();
+                        mKeystone.oneBottom(nowPoint);
+                        updateText(view,focusId);
                         return true;
-                    case KeyEvent.KEYCODE_ESCAPE:
-                        dot_canMoved = true;
-                        Log.i("function:onKey()","按下退出键,dot_canMoved:"+dot_canMoved);
+					case KeyEvent.KEYCODE_MENU:
+                        mKeystone.restoreKeystone();
+                        text_left_up.setText("0");
+                        saveTextValue("text_left_up","0");
+                        text_right_up.setText("0");
+                        saveTextValue("text_right_up","0");
+                        text_left_down.setText("0");
+                        saveTextValue("text_left_down","0");
+                        text_right_down.setText("0");
+                        saveTextValue("text_right_down","0");
+                        break;
+                    case KeyEvent.KEYCODE_ENTER:
+						nowPoint++;
+                        if(nowPoint>3)
+                            nowPoint =0;
+                        Log.i("function:onKey()","按下OK键,dot_canMoved="+dot_canMoved);
+                        Log.i("function:onKey()","当前控件是："+focusId);
+                        switch (focusId) {
+                            case R.id.iv_single_left_up:
+                                Log.i("function:onKey()","切换到右上");
+                                single_right_up.requestFocus();
+                                break;
+                            case R.id.iv_single_right_up:
+                                Log.i("function:onKey()","切换到右下");
+                                single_right_down.requestFocus();
+                                break;
+                            case R.id.iv_single_right_down:
+                                Log.i("function:onKey()","切换到左下");
+                                single_left_down.requestFocus();
+                                break;
+                            case R.id.iv_single_left_down:
+                                Log.i("function:onKey()","切换到左上");
+                                single_left_up.requestFocus();
+                                break;
+                        }
                         return true;
                 }
-            } else if (dot_canMoved){
-                if (keyCode == KeyEvent.KEYCODE_ENTER){
-                    dot_canMoved = false;
-                    Log.i("function:onKey()","按下OK键,dot_canMoved="+dot_canMoved);
-                    return true;
-                }
-            }
         }
+//        textView.setText(mKeystone.getOnePointInfo(nowPoint));
         return false;
     }
 
