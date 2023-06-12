@@ -17,7 +17,7 @@
         android:layout_width="@dimen/size_seek_width"
         android:layout_height="@dimen/size_seek_height"
         android:layout_below="@+id/iv_size"
-        android:layout_marginLeft="@dimen/size_seek_marginLeft"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/size_seek_marginTop"
         android:max="10"
         android:progress="0"
@@ -31,14 +31,14 @@
         android:textSize="@dimen/size_textLevel_textSize"
         android:textStyle="bold"
         android:layout_below="@+id/seekbar_level"
-        android:layout_marginTop="@dimen/size_textLevel_marginTop"
-        android:layout_marginLeft="@dimen/size_textLevel_marginLeft"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/size_textLevel_marginTop" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="左右键缩放尺寸"
         android:layout_below="@+id/text_level"
-        android:layout_marginLeft="@dimen/size_text_marginLeft"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textSize="@dimen/size_text_textSize"/>
 </RelativeLayout>

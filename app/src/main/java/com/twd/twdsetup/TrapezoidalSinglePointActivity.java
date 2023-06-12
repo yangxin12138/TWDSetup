@@ -272,7 +272,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
          * 右键
          * TODO:
          */
-        Toast.makeText(this, "往右拉", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "往右拉", Toast.LENGTH_SHORT).show();
     }
 
     private void goLeft() {
@@ -280,7 +280,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
          * 左键
          * TODO:
          */
-        Toast.makeText(this, "往左拉", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "往左拉", Toast.LENGTH_SHORT).show();
     }
 
     private void goDown() {
@@ -288,7 +288,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
          * 下键
          * TODO:
          */
-        Toast.makeText(this, "往下拉", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "往下拉", Toast.LENGTH_SHORT).show();
     }
 
     private void goUp() {
@@ -296,6 +296,6 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
          * 上键
          * TODO:
          */
-        Toast.makeText(this, "往上拉", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "往上拉", Toast.LENGTH_SHORT).show();
     }
 }

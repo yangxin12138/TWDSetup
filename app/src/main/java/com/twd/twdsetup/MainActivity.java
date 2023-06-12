@@ -97,24 +97,24 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         Intent intent;
         switch (v.getId()){
             case R.id.trapezoidal_double_point:
-                Toast.makeText(this, "点击两点梯形校正", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "点击两点梯形校正", Toast.LENGTH_SHORT).show();
                 intent = new Intent(this,TrapezoidalActivity.class);
                 startActivity(intent);
                 break;
             case R.id.trapezoidal_single_point:
-                Toast.makeText(this, "点击四点梯形校正", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "点击四点梯形校正", Toast.LENGTH_SHORT).show();
                 intent = new Intent(this,TrapezoidalSinglePointActivity.class);
                 startActivity(intent);
                 break;
             case R.id.size:
-                Toast.makeText(this, "点击尺寸调节", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "点击尺寸调节", Toast.LENGTH_SHORT).show();
                 intent = new Intent(this,SizeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.projection:
                 intent = new Intent(this,ProjectionActivity.class);
                 startActivity(intent);
-                Toast.makeText(this, "点击投影方式", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "点击投影方式", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
