@@ -95,7 +95,7 @@
     <ImageView
         android:layout_width="@dimen/singlePoint_iv_width"
         android:layout_height="@dimen/singlePoint_iv_height"
-        android:src="@mipmap/trape_tips"
+        android:src="@mipmap/trape_tips_single"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
