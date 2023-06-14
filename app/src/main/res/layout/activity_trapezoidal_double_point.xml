@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/trape_background">
 
+    <!--提示图片 居中显示-->
     <ImageView
         android:id="@+id/iv_trapezoidal01"
         android:layout_width="@dimen/singlePoint_iv_width"
@@ -16,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--调整数值-->
     <RelativeLayout
         android:id="@+id/double_RL"
         android:layout_width="@dimen/double_RL_width"

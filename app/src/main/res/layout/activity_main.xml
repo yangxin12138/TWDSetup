@@ -7,6 +7,7 @@
     tools:context=".MainActivity"
     android:background="#FFFFFF">
 
+    <!--首页标题-->
     <TextView
         android:id="@+id/tvtitle"
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
         android:layout_marginTop="@dimen/main_title_marginTop"/>
 
 
+    <!--菜单list-->
     <LinearLayout
         android:id="@+id/list"
         android:layout_width="wrap_content"
@@ -34,6 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvtitle">
 
+        <!--两点梯形校正-->
         <RelativeLayout
             android:id="@+id/trapezoidal_double_point"
             android:layout_width="wrap_content"
@@ -72,6 +75,7 @@
                 android:src="@drawable/arrow" />
         </RelativeLayout>
 
+        <!--四点梯形校正-->
         <RelativeLayout
             android:id="@+id/trapezoidal_single_point"
             android:layout_width="wrap_content"
@@ -110,7 +114,7 @@
                 android:src="@drawable/arrow" />
         </RelativeLayout>
 
-
+        <!--尺寸调节-->
         <RelativeLayout
             android:id="@+id/size"
             android:layout_width="wrap_content"
@@ -150,6 +154,7 @@
                 android:src="@drawable/arrow" />
         </RelativeLayout>
 
+        <!--投影方式-->
         <RelativeLayout
             android:id="@+id/projection"
             android:layout_width="wrap_content"

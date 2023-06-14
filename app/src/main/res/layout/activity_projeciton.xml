@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--投影方式 二级菜单 标题-->
     <TextView
         android:id="@+id/title_projection"
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             android:background="@drawable/test"
             android:focusable="true">
 
+            <!--正装正投-->
             <TextView
                 android:id="@+id/tv_pos_pos"
                 android:layout_width="wrap_content"
@@ -50,6 +52,7 @@
                 android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
+        <!--正装背投-->
         <RelativeLayout
             android:id="@+id/pro_pos_neg"
             android:layout_width="@dimen/projection_RL_width"
@@ -77,6 +80,7 @@
                 android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
+        <!--吊装正投-->
         <RelativeLayout
             android:id="@+id/pro_neg_pos"
             android:layout_width="@dimen/projection_RL_width"
@@ -104,6 +108,7 @@
                 android:layout_marginTop="@dimen/projection_iv_marginTop" />
         </RelativeLayout>
 
+        <!--吊装背投-->
         <RelativeLayout
             android:id="@+id/pro_neg_neg"
             android:layout_width="@dimen/projection_RL_width"

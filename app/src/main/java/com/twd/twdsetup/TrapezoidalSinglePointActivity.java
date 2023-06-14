@@ -29,7 +29,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
     private TextView text_right_down;
     private TextView textView;
 
-    private boolean dot_canMoved = false;
+    private boolean dot_canMoved = false; /* 标记方向键不移动焦点 */
     private keystoneOnePoint mKeystone;
     private static int nowPoint = 0;
 
@@ -58,6 +58,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         initView();
     }
 
+    /* 初始化页面 */
     private void initView(){
         single_left_up = (ImageView) findViewById(R.id.iv_single_left_up);
         single_right_up = (ImageView) findViewById(R.id.iv_single_right_up);
@@ -146,6 +147,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         }
     }
 
+    /* 保存数据 */
     private void saveTextValue(String DotName,String value){
         SharedPreferences.Editor editor = getSharedPreferences("single_text_value",MODE_PRIVATE).edit();
         editor.putString(DotName,value);
@@ -194,6 +196,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         }
     }
 
+    /* 处理按键方法 */
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         Log.i("function:onKey()","进onKey,keycode:"+keyCode);

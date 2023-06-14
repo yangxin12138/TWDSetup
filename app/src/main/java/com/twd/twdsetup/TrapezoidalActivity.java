@@ -63,12 +63,14 @@ public class TrapezoidalActivity extends AppCompatActivity {
         mTextY.setText(textY);
     }
 
+    /* 保存调整坐标数据 */
     private void saveTextValue(String VorH,String value){
         SharedPreferences.Editor editor = getSharedPreferences("text_value",MODE_PRIVATE).edit();
         editor.putString(VorH,value);
         editor.apply();
     }
 
+    /* 处理按键方法 */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();

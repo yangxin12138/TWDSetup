@@ -69,6 +69,7 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         initView();
     }
 
+    /* 页面初始化 */
     private void initView(){
         pos_pos = (RelativeLayout) findViewById(R.id.pro_pos_pos);
         pos_neg = (RelativeLayout) findViewById(R.id.pro_pos_neg);
@@ -113,6 +114,7 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         boolean neg_neg_isChecked = prefs.getBoolean(NEG_NEG,false);
         if (neg_neg_isChecked) sel_neg_neg.setImageResource(R.drawable.selected);
 */
+        /* 设置监听 */
         pos_pos.setOnClickListener(this);
         pos_neg.setOnClickListener(this);
         neg_pos.setOnClickListener(this);
@@ -178,6 +180,8 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         editor.putBoolean(NEG_NEG,items[3]);
         editor.apply();
     }
+
+    /* 点击事件 */
     @Override
     public void onClick(View v) {
         boolean[] isChecked = new boolean[4];

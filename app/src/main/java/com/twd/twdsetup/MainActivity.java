@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         initView();
     }
 
+    /* 页面初始化 */
     private void initView() {
 //        View projectionView = getLayoutInflater().inflate(R.layout.activity_projeciton,null);
         // 获取SharedPreferences实例，传递使用的SharedPreferences文件名称和MODE_PRIVATE模式
@@ -74,13 +75,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         tv_size = (TextView) findViewById(R.id.tv_size);
         tv_projection = (TextView) findViewById(R.id.tv_projection);
 
+        /* 设置投影方式显示文字 根据mSharedPreferences中提取的值判断显示*/
         tv_projection_small = (TextView) findViewById(R.id.tv_projection_small);
         Log.i("投影方式：","pos_pos_check:"+pos_pos_check+",pos_neg_check:"+pos_neg_check+",neg_pos_check:"+neg_pos_check+",neg_neg_check:"+neg_neg_check);
         if (pos_pos_check) tv_projection_small.setText("正装正投");
         if (pos_neg_check) tv_projection_small.setText("正装背投");
         if (neg_pos_check) tv_projection_small.setText("吊装正投");
         if (neg_neg_check) tv_projection_small.setText("吊装背投");
-
+        /* 设置监听器 */
         double_TrapezoidalRL.setOnClickListener(this);
         single_TrapezoidalRl.setOnClickListener(this);
         sizeRl.setOnClickListener(this);
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        /* 点击事件，跳转到对应菜单和活动*/
         Intent intent;
         switch (v.getId()){
             case R.id.trapezoidal_double_point:
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
     }
 
+    /* 聚焦监听 选中变红*/
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--提示图片 居中显示-->
     <ImageView
         android:id="@+id/iv_size"
         android:layout_width="@dimen/size_iv_width"

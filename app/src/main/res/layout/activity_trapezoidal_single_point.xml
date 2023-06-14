@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/trape_background">
+    <!--左上角-->
     <ImageView
         android:id="@+id/iv_single_left_up"
         android:layout_width="wrap_content"
@@ -25,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <!--右上角-->
     <ImageView
         android:id="@+id/iv_single_right_up"
         android:layout_width="wrap_content"
@@ -47,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-
+    <!--左下角-->
     <ImageView
         android:id="@+id/iv_single_left_down"
         android:layout_width="wrap_content"
@@ -70,6 +72,7 @@
         android:layout_marginStart="@dimen/single_tv_margin"
         android:layout_marginBottom="@dimen/single_tv_margin"/>
 
+    <!--右下角-->
     <ImageView
         android:id="@+id/iv_single_right_down"
         android:layout_width="wrap_content"
@@ -92,6 +95,7 @@
         android:layout_marginBottom="@dimen/single_tv_margin"
         android:layout_marginEnd="@dimen/single_tv_margin"/>
 
+    <!--提示图片-->
     <ImageView
         android:layout_width="@dimen/singlePoint_iv_width"
         android:layout_height="@dimen/singlePoint_iv_height"
