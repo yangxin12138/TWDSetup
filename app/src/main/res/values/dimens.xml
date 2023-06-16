@@ -2,6 +2,11 @@
 <resources>
     <dimen name="main_title_textSize">30sp</dimen>
     <dimen name="main_title_marginTop">50dp</dimen>
+    <dimen name="main_title_marginStart">100dp</dimen>
+    <dimen name="main_title_arrow_width">25dp</dimen>
+    <dimen name="main_title_arrow_height">25dp</dimen>
+    <dimen name="main_title_arrow_marginStart">75dp</dimen>
+    <dimen name="main_title_arrow_marginTop">55dp</dimen>
     <dimen name="main_RL_height">50dp</dimen>
     <dimen name="main_RL_paddingEnd">10dp</dimen>
     <dimen name="double_RL_width">350dp</dimen>
@@ -76,6 +81,11 @@
     <dimen name="projection_tv_marginLeft">20dp</dimen>
     <dimen name="projection_iv_width">30dp</dimen>
     <dimen name="projection_iv_height">30dp</dimen>
+    <dimen name="projection_title_marginStart">100dp</dimen>
+    <dimen name="projection_title_arrow_width">25dp</dimen>
+    <dimen name="projection_title_arrow_height">25dp</dimen>
+    <dimen name="projection_title_arrow_marginStart">75dp</dimen>
+    <dimen name="projection_title_arrow_marginTop">55dp</dimen>
     <dimen name="projection_iv_marginStart">350dp</dimen>
     <dimen name="projection_iv_marginTop">15dp</dimen>
     <dimen name="main_RL_marginTop">10dp</dimen>

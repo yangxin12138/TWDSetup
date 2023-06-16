@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_title_textSize">30sp</dimen>
+    <dimen name="main_title_textSize">25sp</dimen>
     <dimen name="main_tv_textSize">20sp</dimen>
     <dimen name="main_RL_height">70dp</dimen>
     <dimen name="main_title_marginTop">30dp</dimen>
-    <dimen name="projection_title_textSize">40sp</dimen>
+    <dimen name="main_title_marginStart">100dp</dimen>
+    <dimen name="projection_title_textSize">30sp</dimen>
     <dimen name="main_tv_textSize_small">15sp</dimen>
+    <dimen name="main_title_arrow_width">25dp</dimen>
+    <dimen name="main_title_arrow_height">25dp</dimen>
+    <dimen name="main_title_arrow_marginStart">70dp</dimen>
+    <dimen name="main_title_arrow_marginTop">36dp</dimen>
     <dimen name="double_vertical_paddingTop">23dp</dimen>
     <dimen name="double_tv_vertical_paddingStart">75dp</dimen>
     <dimen name="double_tv_vertical_paddingTop">13dp</dimen>
@@ -73,6 +78,10 @@
     <dimen name="projection_iv_height">30dp</dimen>
     <dimen name="projection_iv_marginStart">750dp</dimen>
     <dimen name="projection_iv_marginTop">15dp</dimen>
+    <dimen name="projection_title_arrow_width">25dp</dimen>
+    <dimen name="projection_title_arrow_height">25dp</dimen>
+    <dimen name="projection_title_arrow_marginStart">70dp</dimen>
+    <dimen name="projection_title_arrow_marginTop">30dp</dimen>
     <dimen name="main_RL_marginTop">15dp</dimen>
     <dimen name="main_iv_marginTop">5dp</dimen>
     <dimen name="doublePoint_lu_marginStart">33dp</dimen>
