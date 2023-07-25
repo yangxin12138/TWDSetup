@@ -13,4 +13,61 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--冰只因蓝-->
+    <style name="Theme.IceBlue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="arrowBackSrc">@drawable/arrow_back_white</item>
+        <item name="textColor">@color/white</item>
+        <item name="trape_double_Src">@drawable/icon_trapezoidal_double_point_white</item>
+        <item name="trape_single_Src">@drawable/icon_trapezoidal_single_point_white</item>
+        <item name="size_src">@drawable/icon_size_white</item>
+        <item name="projection_Src">@drawable/icon_projection_white</item>
+        <item name="arrowSrc">@drawable/arrow_white</item>
+        <item name="backGround">@color/customBlue</item>
+        <item name="selFrameBG">@drawable/blue_sel_bg</item>
+        <item name="unselFrameBG">@drawable/iceblue_unsel_bg</item>
+        <item name="itemSelected">@drawable/item_selected_white</item>
+        <item name="projection_bg">@drawable/trape_background_iceblue</item>
+        <item name="arrow_horizontal">@mipmap/arrow_horizont_white</item>
+        <item name="arrow_vertical">@mipmap/arrow_vertical_white</item>
+        <item name="trape_dots">@drawable/trape_dot_white</item>
+    </style>
+
+    <!--星空蓝-->
+    <style name="Theme.StarBlue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="arrowBackSrc">@drawable/arrow_back_white</item>
+        <item name="textColor">@color/white</item>
+        <item name="trape_double_Src">@drawable/icon_trapezoidal_double_point_white</item>
+        <item name="trape_single_Src">@drawable/icon_trapezoidal_single_point_white</item>
+        <item name="size_src">@drawable/icon_size_white</item>
+        <item name="projection_Src">@drawable/icon_projection_white</item>
+        <item name="arrowSrc">@drawable/arrow_white</item>
+        <item name="backGround">@color/customStarBlue</item>
+        <item name="selFrameBG">@drawable/blue_sel_bg</item>
+        <item name="unselFrameBG">@drawable/starblue_unsel_bg</item>
+        <item name="itemSelected">@drawable/item_selected_white</item>
+        <item name="projection_bg">@drawable/trape_background_starblue</item>
+        <item name="arrow_horizontal">@mipmap/arrow_horizont_white</item>
+        <item name="arrow_vertical">@mipmap/arrow_vertical_white</item>
+        <item name="trape_dots">@drawable/trape_dot_white</item>
+    </style>
+
+    <!--木棉白-->
+    <style name="Theme.KapokWhite" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="arrowBackSrc">@drawable/arrow_back</item>
+        <item name="textColor">@color/black</item>
+        <item name="trape_double_Src">@drawable/icon_trapezoidal_double_point</item>
+        <item name="trape_single_Src">@drawable/icon_trapezoidal_single_point</item>
+        <item name="size_src">@drawable/icon_size_color</item>
+        <item name="projection_Src">@drawable/icon_projection_color</item>
+        <item name="arrowSrc">@drawable/arrow</item>
+        <item name="backGround">@color/white</item>
+        <item name="selFrameBG">@drawable/test_red</item>
+        <item name="unselFrameBG">@drawable/test</item>
+        <item name="itemSelected">@drawable/selected</item>
+        <item name="projection_bg">@drawable/trape_background</item>
+        <item name="arrow_horizontal">@mipmap/arrow_horizont</item>
+        <item name="arrow_vertical">@mipmap/arrow_vertical</item>
+        <item name="trape_dots">@drawable/trape_dot</item>
+    </style>
 </resources>

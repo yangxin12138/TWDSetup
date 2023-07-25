@@ -1,7 +1,10 @@
 package com.twd.twdsetup;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,12 +15,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.twd.twdsetup.keystone.SystemPropertiesUtils;
 import com.twd.twdsetup.keystone.keystone;
 import com.twd.twdsetup.keystone.keystoneOnePoint;
 import com.twd.twdsetup.keystone.keystoneTwoPoint;
 
 public class TrapezoidalSinglePointActivity extends AppCompatActivity implements View.OnFocusChangeListener , View.OnKeyListener {
 
+    private final static String TAG = TrapezoidalSinglePointActivity.class.getSimpleName();
     private ImageView single_left_up;
     private ImageView single_right_up;
     private ImageView single_left_down;
@@ -34,10 +39,42 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
     private static int nowPoint = 0;
 
     protected static SharedPreferences prefsDotValue;
+
+    private TypedArray tyar;
+    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: theme_code:"+theme_code);
+        switch (theme_code){
+            case "0": //冰激蓝
+                this.setTheme(R.style.Theme_IceBlue);
+                break;
+            case "1": //木棉白
+                this.setTheme(R.style.Theme_KapokWhite);
+                break;
+            case "2": //星空蓝
+                this.setTheme(R.style.Theme_StarBlue);
+                break;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trapezoidal_single_point);
+        tyar= this.getTheme().obtainStyledAttributes(new int[]{
+                R.attr.arrowBackSrc,//0
+                R.attr.textColor,//1
+                R.attr.trape_double_Src,//2
+                R.attr.trape_single_Src,//3
+                R.attr.size_src,//4
+                R.attr.projection_Src,//5
+                R.attr.unselFrameBG,//6
+                R.attr.selFrameBG,//7
+                R.attr.arrowSrc,//8
+                R.attr.backGround,//9
+                R.attr.itemSelected,//10
+                R.attr.projection_bg,
+                R.attr.trape_dots
+        });
         initView();
         nowPoint = 0;
         mKeystone = new keystoneOnePoint(this);
@@ -59,6 +96,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
     }
 
     /* 初始化页面 */
+    @SuppressLint("ResourceType")
     private void initView(){
         single_left_up = (ImageView) findViewById(R.id.iv_single_left_up);
         single_right_up = (ImageView) findViewById(R.id.iv_single_right_up);
@@ -69,6 +107,11 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         text_right_up = (TextView) findViewById(R.id.tv_single_right_up);
         text_left_down = (TextView) findViewById(R.id.tv_single_left_down);
         text_right_down = (TextView) findViewById(R.id.tv_single_right_down);
+
+        text_left_up.setTextColor(tyar.getColor(1,0));
+        text_right_up.setTextColor(tyar.getColor(1,0));
+        text_left_down.setTextColor(tyar.getColor(1,0));
+        text_right_down.setTextColor(tyar.getColor(1,0));
         //读取数据
         prefsDotValue = this.getSharedPreferences("single_text_value",MODE_PRIVATE);
         text_left_up.setText(prefsDotValue.getString("text_left_up","0"));
@@ -106,11 +149,11 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
      * @param left_down
      * @param right_down
      */
-    private void setImageResource(int left_up,int right_up,int left_down,int right_down){
-        single_left_up.setImageResource(left_up);
-        single_right_up.setImageResource(right_up);
-        single_left_down.setImageResource(left_down);
-        single_right_down.setImageResource(right_down);
+    private void setImageResource(Drawable left_up, Drawable right_up, Drawable left_down, Drawable right_down){
+        single_left_up.setImageDrawable(left_up);
+        single_right_up.setImageDrawable(right_up);
+        single_left_down.setImageDrawable(left_down);
+        single_right_down.setImageDrawable(right_down);
     }
 
     private void setTextVisible(int luVisible,int ruVisible,int ldVisible,int rdVisible){
@@ -119,28 +162,29 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         text_left_down.setVisibility(ldVisible);
         text_right_down.setVisibility(rdVisible);
     }
+    @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus){
             switch (v.getId()){
                 case R.id.iv_single_left_up:
                     //焦点在左上
-                    setImageResource(R.drawable.trape_dot,R.drawable.unselected,R.drawable.unselected,R.drawable.unselected);
+                    setImageResource(tyar.getDrawable(12),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected));
                     setTextVisible(View.VISIBLE,View.GONE,View.GONE,View.GONE);
                     break;
                 case R.id.iv_single_right_up:
                     //焦点在右上
-                    setImageResource(R.drawable.unselected,R.drawable.trape_dot,R.drawable.unselected,R.drawable.unselected);
+                    setImageResource(getDrawable(R.drawable.unselected),tyar.getDrawable(12),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected));
                     setTextVisible(View.GONE,View.VISIBLE,View.GONE,View.GONE);
                     break;
                 case R.id.iv_single_left_down:
                     //焦点在左下
-                    setImageResource(R.drawable.unselected,R.drawable.unselected,R.drawable.trape_dot,R.drawable.unselected);
+                    setImageResource(getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),tyar.getDrawable(12),getDrawable(R.drawable.unselected));
                     setTextVisible(View.GONE,View.GONE,View.VISIBLE,View.GONE);
                     break;
                 case R.id.iv_single_right_down:
                     //焦点在右下
-                    setImageResource(R.drawable.unselected,R.drawable.unselected,R.drawable.unselected,R.drawable.trape_dot);
+                    setImageResource(getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),tyar.getDrawable(12));
                     setTextVisible(View.GONE,View.GONE,View.GONE,View.VISIBLE);
                     break;
             }

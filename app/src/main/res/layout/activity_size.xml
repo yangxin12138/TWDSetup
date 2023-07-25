@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backGround">
 
     <!--提示图片 居中显示-->
     <ImageView
@@ -41,5 +42,6 @@
         android:layout_below="@+id/text_level"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
+        android:textColor="?attr/textColor"
         android:textSize="@dimen/size_text_textSize"/>
 </RelativeLayout>

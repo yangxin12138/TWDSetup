@@ -2,8 +2,10 @@ package com.twd.twdsetup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.twd.twdsetup.keystone.SystemPropertiesUtils;
 import com.twd.twdsetup.keystone.keystone;
 import com.twd.twdsetup.keystone.keystoneTwoPoint;
 
@@ -28,11 +31,41 @@ public class TrapezoidalActivity extends AppCompatActivity {
     private TextView mTextX;//左右调节
 
     protected static SharedPreferences prefsTextValue;
+
+    private TypedArray tyar;
+    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: theme_code:"+theme_code);
+        switch (theme_code){
+            case "0": //冰激蓝
+                this.setTheme(R.style.Theme_IceBlue);
+                break;
+            case "1": //木棉白
+                this.setTheme(R.style.Theme_KapokWhite);
+                break;
+            case "2": //星空蓝
+                this.setTheme(R.style.Theme_StarBlue);
+                break;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trapezoidal_double_point);
        // mKeystone = new keystone(this);
+        tyar= this.getTheme().obtainStyledAttributes(new int[]{
+                R.attr.arrowBackSrc,
+                R.attr.textColor,
+                R.attr.trape_double_Src,
+                R.attr.trape_single_Src,
+                R.attr.size_src,
+                R.attr.projection_Src,
+                R.attr.unselFrameBG,
+                R.attr.selFrameBG,
+                R.attr.arrowSrc,
+                R.attr.backGround,
+                R.attr.itemSelected,
+                R.attr.projection_bg
+        });
         initView();
         SharedPreferences prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
         int mode = prefs.getInt("mode",0);
@@ -52,6 +85,7 @@ public class TrapezoidalActivity extends AppCompatActivity {
         initView();
     }
 
+    @SuppressLint("ResourceType")
     private void initView(){
         //初始化并读取数据
         mTextY = (TextView) findViewById(R.id.tv_vertical);
@@ -60,7 +94,9 @@ public class TrapezoidalActivity extends AppCompatActivity {
         String textX = prefsTextValue.getString("horizontalValue","0");
         String textY = prefsTextValue.getString("verticalValue","0");
         mTextX.setText(textX);
+        mTextX.setTextColor(tyar.getColor(1,0));
         mTextY.setText(textY);
+        mTextY.setTextColor(tyar.getColor(1,0));
     }
 
     /* 保存调整坐标数据 */

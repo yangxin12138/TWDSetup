@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#FFFFFF">
+    android:background="?attr/backGround"
+    android:id="@+id/main_background">
 
     <ImageView
         android:layout_width="@dimen/main_title_arrow_width"
         android:layout_height="@dimen/main_title_arrow_height"
-        android:src="@drawable/arrow_back"
+        android:src="?attr/arrowBackSrc"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/main_title_arrow_marginStart"
         android:layout_marginTop="@dimen/main_title_arrow_marginTop"
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="投影设置"
-        android:textColor="@color/black"
+        android:textColor="?attr/textColor"
         android:textSize="@dimen/main_title_textSize"
         android:textStyle="normal"
         android:layout_marginStart="@dimen/main_title_marginStart"
@@ -50,7 +51,7 @@
             android:id="@+id/trapezoidal_double_point"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:paddingEnd="@dimen/main_RL_paddingEnd"
             android:focusable="true"
             android:gravity="center_vertical">
@@ -62,7 +63,7 @@
                 android:scaleType="fitCenter"
                 android:layout_marginTop="@dimen/main_iv_marginTop"
                 android:padding="@dimen/main_iv_padding"
-                android:src="@drawable/icon_trapezoidal_double_point" />
+                android:src="?attr/trape_single_Src" />
 
             <TextView
                 android:id="@+id/tv_trapezoidal_double_point"
@@ -71,7 +72,7 @@
                 android:layout_toRightOf="@+id/iv_trapezoidal_double_point"
                 android:gravity="center_vertical"
                 android:text="两点梯形校正"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/main_tv_textSize"
                 android:textStyle="normal" />
 
@@ -81,7 +82,7 @@
                 android:layout_height="@dimen/main_arrow_height"
                 android:layout_marginStart="@dimen/main_arrow_marginStart"
                 android:layout_marginTop="@dimen/main_arrow_marginTop"
-                android:src="@drawable/arrow" />
+                android:src="?attr/arrowSrc" />
         </RelativeLayout>
 
         <!--四点梯形校正-->
@@ -89,7 +90,7 @@
             android:id="@+id/trapezoidal_single_point"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true"
             android:paddingEnd="@dimen/main_RL_paddingEnd"
             android:gravity="center_vertical"
@@ -101,7 +102,7 @@
                 android:layout_height="@dimen/main_iv_height"
                 android:layout_marginTop="@dimen/main_iv_marginTop"
                 android:padding="@dimen/main_iv_padding"
-                android:src="@drawable/icon_trapezoidal_single_point" />
+                android:src="?attr/trape_double_Src" />
 
             <TextView
                 android:id="@+id/tv_trapezoidal_single_point"
@@ -110,7 +111,7 @@
                 android:layout_toRightOf="@+id/iv_trapezoidal_single_point"
                 android:gravity="center_vertical"
                 android:text="四点梯形校正"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/main_tv_textSize"
                 android:textStyle="normal" />
 
@@ -120,7 +121,7 @@
                 android:layout_height="@dimen/main_arrow_height"
                 android:layout_marginStart="@dimen/main_arrow_marginStart"
                 android:layout_marginTop="@dimen/main_arrow_marginTop"
-                android:src="@drawable/arrow" />
+                android:src="?attr/arrowSrc" />
         </RelativeLayout>
 
         <!--尺寸调节-->
@@ -128,7 +129,7 @@
             android:id="@+id/size"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true"
             android:paddingEnd="@dimen/main_RL_paddingEnd"
             android:gravity="center_vertical"
@@ -141,7 +142,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/main_iv_marginTop"
                 android:padding="@dimen/main_iv_padding"
-                android:src="@drawable/icon_size_color" />
+                android:src="?attr/size_src" />
 
             <TextView
                 android:id="@+id/tv_size"
@@ -150,7 +151,7 @@
                 android:layout_toRightOf="@+id/iv_size"
                 android:gravity="center_vertical"
                 android:text="尺寸调节"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/main_tv_textSize"
                 android:textStyle="normal" />
 
@@ -160,7 +161,7 @@
                 android:layout_height="@dimen/main_arrow_height"
                 android:layout_marginStart="@dimen/main_arrow_marginStart"
                 android:layout_marginTop="@dimen/main_arrow_marginTop"
-                android:src="@drawable/arrow" />
+                android:src="?attr/arrowSrc" />
         </RelativeLayout>
 
         <!--投影方式-->
@@ -168,7 +169,7 @@
             android:id="@+id/projection"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true"
             android:gravity="center_vertical"
             android:paddingEnd="@dimen/main_RL_paddingEnd"
@@ -181,7 +182,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/main_iv_marginTop"
                 android:padding="@dimen/main_iv_padding"
-                android:src="@drawable/icon_projection_color" />
+                android:src="?attr/projection_Src" />
 
             <TextView
                 android:id="@+id/tv_projection"
@@ -190,7 +191,7 @@
                 android:layout_toRightOf="@+id/iv_projection"
                 android:gravity="center_vertical"
                 android:text="投影方式"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/main_tv_textSize"
                 android:textStyle="normal" />
 
@@ -201,7 +202,7 @@
                 android:layout_marginLeft="@dimen/main_tv_marginLeft"
                 android:layout_toRightOf="@+id/tv_projection"
                 android:paddingTop="@dimen/main_tv_paddingTop"
-                android:textColor="@color/grey"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/main_tv_textSize_small"
                 android:textStyle="normal" />
 
@@ -211,7 +212,7 @@
                 android:layout_height="@dimen/main_arrow_height"
                 android:layout_marginStart="@dimen/main_arrow_marginStart"
                 android:layout_marginTop="@dimen/main_arrow_marginTop"
-                android:src="@drawable/arrow" />
+                android:src="?attr/arrowSrc" />
         </RelativeLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

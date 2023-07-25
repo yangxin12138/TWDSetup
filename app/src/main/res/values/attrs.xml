@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="arrowBackSrc" format="reference"/>
+    <attr name="textColor" format="color"/>
+    <attr name="trape_double_Src" format="reference"/>
+    <attr name="trape_single_Src" format="reference"/>
+    <attr name="size_src" format="reference"/>
+    <attr name="projection_Src" format="reference"/>
+    <attr name="unselFrameBG" format="reference"/>
+    <attr name="selFrameBG" format="reference"/>
+    <attr name="arrowSrc" format="reference"/>
+    <attr name="backGround" format="color"/>
+    <attr name="itemSelected" format="reference"/>
+    <attr name="projection_bg" format="reference"/>
+    <attr name="arrow_horizontal" format="reference"/>
+    <attr name="arrow_vertical" format="reference"/>
+    <attr name="trape_dots" format="reference"/>
+</resources>

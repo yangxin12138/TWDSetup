@@ -1,6 +1,9 @@
 package com.twd.twdsetup;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import com.twd.twdsetup.keystone.SystemPropertiesUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -62,10 +63,40 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
     public static boolean neg_pos_check;
     public static boolean neg_neg_check;
 
+    private TypedArray tyar;
+    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: theme_code:"+theme_code);
+        switch (theme_code){
+            case "0": //冰激蓝
+                this.setTheme(R.style.Theme_IceBlue);
+                break;
+            case "1": //木棉白
+                this.setTheme(R.style.Theme_KapokWhite);
+                break;
+            case "2": //星空蓝
+                this.setTheme(R.style.Theme_StarBlue);
+                break;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projeciton);
+        tyar= this.getTheme().obtainStyledAttributes(new int[]{
+                R.attr.arrowBackSrc,
+                R.attr.textColor,
+                R.attr.trape_double_Src,
+                R.attr.trape_single_Src,
+                R.attr.size_src,
+                R.attr.projection_Src,
+                R.attr.unselFrameBG,
+                R.attr.selFrameBG,
+                R.attr.arrowSrc,
+                R.attr.backGround,
+                R.attr.itemSelected,
+                R.attr.projection_bg
+        });
         initView();
     }
 
@@ -88,7 +119,7 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         sel_neg_pos = (ImageView) findViewById(R.id.sel_neg_pos);
         sel_neg_neg = (ImageView) findViewById(R.id.sel_neg_neg);
 
-        int mode = readProjectionValue(PATH_DEV_PRO_INFO);
+        /*int mode = readProjectionValue(PATH_DEV_PRO_INFO);
         if (mode == VALUE_POSITIVE_DRESS) {
             sel_pos_pos.setImageResource(R.drawable.selected);
         } else if (mode == VALUE_DRESSING_REAR) {
@@ -99,9 +130,9 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
             sel_neg_neg.setImageResource(R.drawable.selected);
         } else {
             sel_pos_pos.setImageResource(R.drawable.selected);
-        }
+        }*/
         //读取上次保存的数据
-/*        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean pos_pos_isChecked = prefs.getBoolean(POS_POS,false);
         if (pos_pos_isChecked) sel_pos_pos.setImageResource(R.drawable.selected); else sel_pos_pos.setImageResource(R.drawable.unselected);
 
@@ -113,7 +144,6 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
 
         boolean neg_neg_isChecked = prefs.getBoolean(NEG_NEG,false);
         if (neg_neg_isChecked) sel_neg_neg.setImageResource(R.drawable.selected);
-*/
         /* 设置监听 */
         pos_pos.setOnClickListener(this);
         pos_neg.setOnClickListener(this);
@@ -121,46 +151,126 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
         neg_neg.setOnClickListener(this);
 
         pos_pos.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    v.setBackgroundResource(R.drawable.test_red);
-                    background.setBackgroundResource(R.drawable.bg_pos_pos);
+                    v.setBackground(tyar.getDrawable(7));
+                    tv_pos_pos.setTextColor(getResources().getColor(R.color.black));
+                    if (pos_pos_check){
+                        sel_pos_pos.setImageDrawable(getDrawable(R.drawable.selected));
+                    }
+                    switch (theme_code){
+                        case "0":
+                            background.setBackgroundResource(R.drawable.bg_pos_pos_iceblue);
+                            break;
+                        case "1":
+                            background.setBackgroundResource(R.drawable.bg_pos_pos);
+                            break;
+                        case "2":
+                            background.setBackgroundResource(R.drawable.bg_pos_pos_starblue);
+                            break;
+                    }
                 } else {
-                    v.setBackgroundResource(R.drawable.test);
+                    v.setBackground(tyar.getDrawable(6));
+                    if (theme_code.equals("0") || theme_code.equals("2")){
+                        tv_pos_pos.setTextColor(tyar.getColor(1,0));
+                    }
+                    if (pos_pos_check){
+                        sel_pos_pos.setImageDrawable(tyar.getDrawable(10));
+                    }
                 }
             }
         });
         pos_neg.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    v.setBackgroundResource(R.drawable.test_red);
-                    background.setBackgroundResource(R.drawable.bg_pos_neg);
+                    v.setBackground(tyar.getDrawable(7));
+                    tv_pos_neg.setTextColor(getResources().getColor(R.color.black));
+                    if (pos_neg_check){
+                        sel_pos_neg.setImageDrawable(getDrawable(R.drawable.selected));
+                    }
+                    switch (theme_code){
+                        case "0":
+                            background.setBackgroundResource(R.drawable.bg_pos_neg_iceblue);
+                            break;
+                        case "1":
+                            background.setBackgroundResource(R.drawable.bg_pos_neg);
+                            break;
+                        case "2":
+                            background.setBackgroundResource(R.drawable.bg_pos_neg_starblue);
+                            break;
+                    }
                 } else {
-                    v.setBackgroundResource(R.drawable.test);
+                    v.setBackground(tyar.getDrawable(6));
+                    if (theme_code.equals("0") || theme_code.equals("2")){
+                        tv_pos_neg.setTextColor(tyar.getColor(1,0));
+                    }
+                    if (pos_neg_check){
+                        sel_pos_neg.setImageDrawable(tyar.getDrawable(10));
+                    }
                 }
             }
         });
         neg_pos.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    v.setBackgroundResource(R.drawable.test_red);
-                    background.setBackgroundResource(R.drawable.bg_neg_pos);
+                    v.setBackground(tyar.getDrawable(7));
+                    tv_neg_pos.setTextColor(getResources().getColor(R.color.black));
+                    if (neg_pos_check){
+                        sel_neg_pos.setImageDrawable(getDrawable(R.drawable.selected));
+                    }
+                    switch (theme_code){
+                        case "0":
+                            background.setBackgroundResource(R.drawable.bg_neg_pos_iceblue);
+                            break;
+                        case "1":
+                            background.setBackgroundResource(R.drawable.bg_neg_pos);
+                            break;
+                        case "2":
+                            background.setBackgroundResource(R.drawable.bg_neg_pos_starblue);
+                            break;
+                    }
                 } else {
-                    v.setBackgroundResource(R.drawable.test);
+                    v.setBackground(tyar.getDrawable(6));
+                    tv_neg_pos.setTextColor(tyar.getColor(1,0));
+                    if (neg_pos_check){
+                        sel_neg_pos.setImageDrawable(tyar.getDrawable(10));
+                    }
                 }
             }
         });
         neg_neg.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    v.setBackgroundResource(R.drawable.test_red);
-                    background.setBackgroundResource(R.drawable.bg_neg_neg);
+                    v.setBackground(tyar.getDrawable(7));
+                    tv_neg_neg.setTextColor(getResources().getColor(R.color.black));
+                    if (neg_neg_check){
+                        sel_neg_neg.setImageDrawable(getDrawable(R.drawable.selected));
+                    }
+                    switch (theme_code){
+                        case "0":
+                            background.setBackgroundResource(R.drawable.bg_neg_neg_iceblue);
+                            break;
+                        case "1":
+                            background.setBackgroundResource(R.drawable.bg_neg_neg);
+                            break;
+                        case "2":
+                            background.setBackgroundResource(R.drawable.bg_neg_neg_starblue);
+                            break;
+                    }
                 } else {
-                    v.setBackgroundResource(R.drawable.test);
+                    v.setBackground(tyar.getDrawable(6));
+                    tv_neg_neg.setTextColor(tyar.getColor(1,0));
+                    if (neg_neg_check){
+                        sel_neg_neg.setImageDrawable(tyar.getDrawable(10));
+                    }
                 }
             }
         });
@@ -182,6 +292,7 @@ public class ProjectionActivity extends AppCompatActivity implements View.OnClic
     }
 
     /* 点击事件 */
+    @SuppressLint({"NonConstantResourceId", "ResourceType", "UseCompatLoadingForDrawables"})
     @Override
     public void onClick(View v) {
         boolean[] isChecked = new boolean[4];

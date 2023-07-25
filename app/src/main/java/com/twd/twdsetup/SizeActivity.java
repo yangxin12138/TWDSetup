@@ -1,7 +1,9 @@
 package com.twd.twdsetup;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 
+import com.twd.twdsetup.keystone.SystemPropertiesUtils;
 import com.twd.twdsetup.keystone.keystone;
 import com.twd.twdsetup.keystone.keystoneOnePoint;
 import com.twd.twdsetup.keystone.keystoneTwoPoint;
@@ -26,11 +29,39 @@ public class SizeActivity extends AppCompatActivity implements View.OnFocusChang
     private TextView textView_level;
     private keystone mKeystone;
     protected static SharedPreferences prefs;
+    private TypedArray tyar;
+    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: theme_code:"+theme_code);
+        switch (theme_code){
+            case "0": //冰激蓝
+                this.setTheme(R.style.Theme_IceBlue);
+                break;
+            case "1": //木棉白
+                this.setTheme(R.style.Theme_KapokWhite);
+                break;
+            case "2": //星空蓝
+                this.setTheme(R.style.Theme_StarBlue);
+                break;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_size);
+        tyar= this.getTheme().obtainStyledAttributes(new int[]{
+                R.attr.arrowBackSrc,//0
+                R.attr.textColor,//1
+                R.attr.trape_double_Src,//2
+                R.attr.trape_single_Src,//3
+                R.attr.size_src,//4
+                R.attr.projection_Src,//5
+                R.attr.unselFrameBG,//6
+                R.attr.selFrameBG,//7
+                R.attr.arrowSrc,//8
+                R.attr.backGround,//9
+                R.attr.itemSelected,//10
+                R.attr.projection_bg
+        });
         initView();
         prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
         int mode = prefs.getInt("mode",0);
@@ -43,9 +74,11 @@ public class SizeActivity extends AppCompatActivity implements View.OnFocusChang
     }
 
 
+    @SuppressLint("ResourceType")
     private void initView(){
         seekBar_level = (SeekBar) findViewById(R.id.seekbar_level);
         textView_level = (TextView) findViewById(R.id.text_level);
+        textView_level.setTextColor(tyar.getColor(1,0));
 
         //初始化，读取seekbar状态
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);

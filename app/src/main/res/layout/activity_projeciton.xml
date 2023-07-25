@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backGround">
 
     <ImageView
         android:layout_width="@dimen/projection_title_arrow_width"
         android:layout_height="@dimen/projection_title_arrow_height"
-        android:src="@drawable/arrow_back"
+        android:src="?attr/arrowBackSrc"
         android:layout_marginStart="@dimen/projection_title_arrow_marginStart"
         android:layout_marginTop="@dimen/projection_title_arrow_marginTop" />
 
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/projection_title_marginTop"
         android:text="投影方式"
-        android:textColor="@color/black"
+        android:textColor="?attr/textColor"
         android:layout_marginStart="@dimen/projection_title_marginStart"
         android:textSize="@dimen/projection_title_textSize"
         android:textStyle="normal" />
@@ -36,7 +37,7 @@
             android:id="@+id/pro_pos_pos"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true">
 
             <!--正装正投-->
@@ -47,7 +48,7 @@
                 android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="正装正投"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
@@ -64,7 +65,7 @@
             android:id="@+id/pro_pos_neg"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true"
             android:layout_marginTop="@dimen/projection_RL_marginTop">
 
@@ -75,7 +76,7 @@
                 android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="正装背投"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
@@ -92,7 +93,7 @@
             android:id="@+id/pro_neg_pos"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true"
             android:layout_marginTop="@dimen/projection_RL_marginTop">
 
@@ -103,7 +104,7 @@
                 android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="吊装正投"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
@@ -120,7 +121,7 @@
             android:id="@+id/pro_neg_neg"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="@drawable/test"
+            android:background="?attr/unselFrameBG"
             android:focusable="true"
             android:layout_marginTop="@dimen/projection_RL_marginTop">
 
@@ -131,7 +132,7 @@
                 android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
                 android:text="吊装背投"
-                android:textColor="@color/black"
+                android:textColor="?attr/textColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 

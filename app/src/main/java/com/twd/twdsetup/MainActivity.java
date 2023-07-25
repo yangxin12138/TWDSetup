@@ -1,46 +1,81 @@
 package com.twd.twdsetup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.twd.twdsetup.keystone.SystemPropertiesUtils;
+
+import java.lang.reflect.Type;
 
 /**
  * 投影设置主页
  *
  */
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener , View.OnFocusChangeListener {
+    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
 
-    private RelativeLayout double_TrapezoidalRL;
-    private RelativeLayout single_TrapezoidalRl;
-    private RelativeLayout sizeRl;
-    private RelativeLayout projectionRL;
-
-    private ImageView iv_trapezoidal_double_point;
-    private ImageView iv_trapezoidal_single_point;
-    private ImageView iv_size;
-    private ImageView iv_projection;
-
-
-    private TextView tv_trapezoidal_double_point;
-    private TextView tv_trapezoidal_single_point;
-    private TextView tv_size;
-    private TextView tv_projection;
-    private TextView tv_projection_small;
 
     private SharedPreferences mSharedPreferences;
+    private final static String TAG = MainActivity.class.getSimpleName();
+
+    private TypedArray tyar;
+    ImageView iv_trapezoidal_double_point;
+    ImageView iv_trapezoidal_single_point;
+    ImageView iv_size;
+    ImageView iv_projection;
+
+    TextView tv_trapezoidal_double_point;
+    TextView tv_trapezoidal_single_point;
+    TextView tv_size;
+    TextView tv_projection;
+    TextView tv_projection_small;
+
+    ImageView arrow_trapezoidal_double_point;
+    ImageView arrow_trapezoidal_single_point;
+    ImageView arrow_size;
+    ImageView arrow_projection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: theme_code:"+theme_code);
+        switch (theme_code){
+            case "0": //冰激蓝
+                this.setTheme(R.style.Theme_IceBlue);
+                break;
+            case "1": //木棉白
+                this.setTheme(R.style.Theme_KapokWhite);
+                break;
+            case "2": //星空蓝
+                this.setTheme(R.style.Theme_StarBlue);
+                break;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         tyar= this.getTheme().obtainStyledAttributes(new int[]{
+                R.attr.arrowBackSrc,//0
+                R.attr.textColor,//1
+                R.attr.trape_double_Src,//2
+                R.attr.trape_single_Src,//3
+                R.attr.size_src,//4
+                R.attr.projection_Src,//5
+                R.attr.unselFrameBG,//6
+                R.attr.selFrameBG,//7
+                R.attr.arrowSrc,//8
+                R.attr.backGround,//9
+                R.attr.itemSelected,//10
+                R.attr.projection_bg
+        });
         initView();
     }
 
@@ -60,23 +95,29 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         boolean neg_pos_check = mSharedPreferences.getBoolean("neg_pos",false);
         boolean neg_neg_check = mSharedPreferences.getBoolean("neg_neg",false);
 
-        double_TrapezoidalRL = (RelativeLayout) findViewById(R.id.trapezoidal_double_point);
-        single_TrapezoidalRl = (RelativeLayout) findViewById(R.id.trapezoidal_single_point);
-        sizeRl = (RelativeLayout) findViewById(R.id.size);
-        projectionRL = (RelativeLayout) findViewById(R.id.projection);
+        RelativeLayout double_TrapezoidalRL = findViewById(R.id.trapezoidal_double_point);
+        RelativeLayout single_TrapezoidalRl =  findViewById(R.id.trapezoidal_single_point);
+        RelativeLayout sizeRl =  findViewById(R.id.size);
+        RelativeLayout projectionRL =  findViewById(R.id.projection);
+        ConstraintLayout main_bg = findViewById(R.id.main_background);
 
-        iv_trapezoidal_double_point = (ImageView) findViewById(R.id.iv_trapezoidal_double_point);
-        iv_trapezoidal_single_point = (ImageView) findViewById(R.id.iv_trapezoidal_single_point);
-        iv_size = (ImageView) findViewById(R.id.iv_size);
-        iv_projection = (ImageView) findViewById(R.id.iv_projection);
+        iv_trapezoidal_double_point =  findViewById(R.id.iv_trapezoidal_double_point);
+        iv_trapezoidal_single_point =  findViewById(R.id.iv_trapezoidal_single_point);
+        iv_size =  findViewById(R.id.iv_size);
+        iv_projection =  findViewById(R.id.iv_projection);
 
-        tv_trapezoidal_double_point = (TextView) findViewById(R.id.tv_trapezoidal_double_point);
-        tv_trapezoidal_single_point = (TextView) findViewById(R.id.tv_trapezoidal_single_point);
-        tv_size = (TextView) findViewById(R.id.tv_size);
-        tv_projection = (TextView) findViewById(R.id.tv_projection);
+        tv_trapezoidal_double_point =  findViewById(R.id.tv_trapezoidal_double_point);
+        tv_trapezoidal_single_point =  findViewById(R.id.tv_trapezoidal_single_point);
+        tv_size =  findViewById(R.id.tv_size);
+        tv_projection =  findViewById(R.id.tv_projection);
+
+        arrow_trapezoidal_double_point = findViewById(R.id.arrow_trapezoidal_double_point);
+        arrow_trapezoidal_single_point = findViewById(R.id.arrow_trapezoidal_single_point);
+        arrow_size = findViewById(R.id.arrow_size);
+        arrow_projection = findViewById(R.id.arrow_projection);
 
         /* 设置投影方式显示文字 根据mSharedPreferences中提取的值判断显示*/
-        tv_projection_small = (TextView) findViewById(R.id.tv_projection_small);
+        tv_projection_small =  findViewById(R.id.tv_projection_small);
         Log.i("投影方式：","pos_pos_check:"+pos_pos_check+",pos_neg_check:"+pos_neg_check+",neg_pos_check:"+neg_pos_check+",neg_neg_check:"+neg_neg_check);
         if (pos_pos_check) tv_projection_small.setText("正装正投");
         if (pos_neg_check) tv_projection_small.setText("正装背投");
@@ -94,6 +135,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         projectionRL.setOnFocusChangeListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         /* 点击事件，跳转到对应菜单和活动*/
@@ -123,12 +165,53 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     }
 
     /* 聚焦监听 选中变红*/
+    @SuppressLint("ResourceType")
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
-            v.setBackgroundResource(R.drawable.test_red);
+            v.setBackground(tyar.getDrawable(7));
+            if (theme_code.equals("0") || theme_code.equals("2")){
+                if (v.getId() == R.id.trapezoidal_double_point){
+                    iv_trapezoidal_double_point.setImageResource(R.drawable.icon_trapezoidal_double_point);
+                    tv_trapezoidal_double_point.setTextColor(getResources().getColor(R.color.black));
+                    arrow_trapezoidal_double_point.setImageResource(R.drawable.arrow);
+                } else if (v.getId() == R.id.trapezoidal_single_point) {
+                    iv_trapezoidal_single_point.setImageResource(R.drawable.icon_trapezoidal_single_point);
+                    tv_trapezoidal_single_point.setTextColor(getResources().getColor(R.color.black));
+                    arrow_trapezoidal_single_point.setImageResource(R.drawable.arrow);
+                } else if (v.getId() == R.id.size) {
+                    iv_size.setImageResource(R.drawable.icon_size_color);
+                    tv_size.setTextColor(getResources().getColor(R.color.black));
+                    arrow_size.setImageResource(R.drawable.arrow);
+                } else if (v.getId() == R.id.projection) {
+                    iv_projection.setImageResource(R.drawable.icon_projection_color);
+                    tv_projection.setTextColor(getResources().getColor(R.color.black));
+                    tv_projection_small.setTextColor(getResources().getColor(R.color.black));
+                    arrow_projection.setImageResource(R.drawable.arrow);
+                }
+            }
         } else {
-            v.setBackgroundResource(R.drawable.test);
+            v.setBackground(tyar.getDrawable(6));
+            if (theme_code.equals("0") || theme_code.equals("2")){
+                if (v.getId() == R.id.trapezoidal_double_point){
+                    iv_trapezoidal_double_point.setImageResource(R.drawable.icon_trapezoidal_double_point_white);
+                    tv_trapezoidal_double_point.setTextColor(getResources().getColor(R.color.white));
+                    arrow_trapezoidal_double_point.setImageResource(R.drawable.arrow_white);
+                } else if (v.getId() == R.id.trapezoidal_single_point) {
+                    iv_trapezoidal_single_point.setImageResource(R.drawable.icon_trapezoidal_single_point_white);
+                    tv_trapezoidal_single_point.setTextColor(getResources().getColor(R.color.white));
+                    arrow_trapezoidal_single_point.setImageResource(R.drawable.arrow_white);
+                } else if (v.getId() == R.id.size) {
+                    iv_size.setImageResource(R.drawable.icon_size_white);
+                    tv_size.setTextColor(getResources().getColor(R.color.white));
+                    arrow_size.setImageResource(R.drawable.arrow_white);
+                } else if (v.getId() == R.id.projection) {
+                    iv_projection.setImageResource(R.drawable.icon_projection_white);
+                    tv_projection.setTextColor(getResources().getColor(R.color.white));
+                    tv_projection_small.setTextColor(getResources().getColor(R.color.white));
+                    arrow_projection.setImageResource(R.drawable.arrow_white);
+                }
+            }
         }
     }
 
