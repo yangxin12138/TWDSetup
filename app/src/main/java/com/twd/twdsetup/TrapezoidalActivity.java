@@ -29,7 +29,10 @@ public class TrapezoidalActivity extends AppCompatActivity {
     private keystoneTwoPoint mKeystone;
     private TextView mTextY;//上下调节
     private TextView mTextX;//左右调节
-
+    public final int MODE_ONEPOINT = 1;
+    public final int MODE_TWOPOINT = 0;
+    public final int MODE_UNKOWN = -1;
+    public final String ORIGIN_POINT = "(0)";
     protected static SharedPreferences prefsTextValue;
 
     private TypedArray tyar;
@@ -51,31 +54,20 @@ public class TrapezoidalActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trapezoidal_double_point);
-       // mKeystone = new keystone(this);
-        tyar= this.getTheme().obtainStyledAttributes(new int[]{
-                R.attr.arrowBackSrc,
-                R.attr.textColor,
-                R.attr.trape_double_Src,
-                R.attr.trape_single_Src,
-                R.attr.size_src,
-                R.attr.projection_Src,
-                R.attr.unselFrameBG,
-                R.attr.selFrameBG,
-                R.attr.arrowSrc,
-                R.attr.backGround,
-                R.attr.itemSelected,
-                R.attr.projection_bg
-        });
+
         initView();
         SharedPreferences prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
-        int mode = prefs.getInt("mode",0);
-
-        mKeystone = new keystoneTwoPoint(this);
-        if(mode == 0){
-            mKeystone.resetKeystone();
+        int mode = prefs.getInt("mode",MODE_UNKOWN);
+        Log.d("TwoPoint", "TrapezoidalActivity mode: "+mode);
+        if(mode == MODE_ONEPOINT || mode == MODE_UNKOWN){
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("mode",1);
+            editor.putInt("mode",MODE_TWOPOINT);
             editor.apply();
+            mKeystone = new keystoneTwoPoint(this);
+            mKeystone.resetKeystone();
+            resetView();
+        }else{
+            mKeystone = new keystoneTwoPoint(this);
         }
     }
 
@@ -91,12 +83,16 @@ public class TrapezoidalActivity extends AppCompatActivity {
         mTextY = (TextView) findViewById(R.id.tv_vertical);
         mTextX = (TextView) findViewById(R.id.tv_horizontal);
         prefsTextValue = this.getSharedPreferences("text_value",MODE_PRIVATE);
-        String textX = prefsTextValue.getString("horizontalValue","0");
-        String textY = prefsTextValue.getString("verticalValue","0");
+        String textX = prefsTextValue.getString("horizontalValue",ORIGIN_POINT);
+        String textY = prefsTextValue.getString("verticalValue",ORIGIN_POINT);
         mTextX.setText(textX);
-        mTextX.setTextColor(tyar.getColor(1,0));
         mTextY.setText(textY);
-        mTextY.setTextColor(tyar.getColor(1,0));
+    }
+    private void resetView(){
+        mTextX.setText(ORIGIN_POINT);
+        saveTextValue("horizontalValue",ORIGIN_POINT);
+        mTextY.setText(ORIGIN_POINT);
+        saveTextValue("verticalValue",ORIGIN_POINT);
     }
 
     /* 保存调整坐标数据 */
@@ -121,7 +117,7 @@ public class TrapezoidalActivity extends AppCompatActivity {
                     int y =mKeystone.getTwoPointYInfo();
                     mTextY.setText("("+y+")");
                     saveTextValue("verticalValue","("+y+")");
-                    goUp();
+
                     break;
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                     //处理下键事件
@@ -130,7 +126,7 @@ public class TrapezoidalActivity extends AppCompatActivity {
                     int yy=mKeystone.getTwoPointYInfo();
                     mTextY.setText("("+yy+")");
                     saveTextValue("verticalValue","("+yy+")");
-                    goDown();
+
                     break;
                 case KeyEvent.KEYCODE_DPAD_LEFT:
                     //处理左键事件
@@ -139,7 +135,7 @@ public class TrapezoidalActivity extends AppCompatActivity {
                     int x =mKeystone.getTwoPointXInfo();
                     mTextX.setText("("+x+")");
                     saveTextValue("horizontalValue","("+x+")");
-                    goLeft();
+
                     break;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
                     //处理右键事件
@@ -148,35 +144,15 @@ public class TrapezoidalActivity extends AppCompatActivity {
                     int xx =mKeystone.getTwoPointXInfo();
                     mTextX.setText("("+xx+")");
                     saveTextValue("horizontalValue","("+xx+")");
-                    goRight();
+
                     break;
                 case KeyEvent.KEYCODE_MENU:
                     mKeystone.resetKeystone();
-                    int xxx =mKeystone.getTwoPointXInfo();
-                    mTextX.setText("("+xxx+")");
-                    saveTextValue("horizontalValue","("+xxx+")");
-                    int yyy=mKeystone.getTwoPointYInfo();
-                    mTextY.setText("("+yyy+")");
-                    saveTextValue("verticalValue","("+yyy+")");
+                    resetView();
                     break;
             }
         }
         return super.dispatchKeyEvent(event);
     }
 
-    private void goLeft(){
-        Log.i("function:goLeft()","左键方法");
-    }
-
-    private void goRight(){
-        Log.i("function:goRight()","右键方法");
-    }
-
-    private void goDown(){
-        Log.i("function:goDown()","下键方法");
-    }
-
-    private void goUp(){
-        Log.i("function:goUp()","上键方法");
-    }
 }

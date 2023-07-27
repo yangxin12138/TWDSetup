@@ -12,10 +12,8 @@ public class keystoneTwoPoint extends keystone{
     protected static Context mContext;
 
     //protected static final float vZoomRange = (1/2);
-    protected static final int _mStepX = 4;
-    protected static final int _mStepY = 2;
-    protected static final int maxXStep = 40;
-    protected static final int maxYStep = 40;
+    protected static final int maxXStep = 50;
+    protected static final int maxYStep = 50;
 
     private static int zoom_x=0;
     private static int zoom_y=0;
@@ -39,8 +37,7 @@ public class keystoneTwoPoint extends keystone{
 
         vBottomLeft.setMaxX(maxXStep);vBottomLeft.setMaxY(maxYStep);
         vBottomRight.setMaxX(maxXStep);vBottomRight.setMaxY(maxYStep);
-        mStepX = _mStepX;
-        mStepY = _mStepY;
+
     }
 
     public void twoLeft(){

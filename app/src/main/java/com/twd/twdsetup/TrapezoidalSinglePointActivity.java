@@ -37,7 +37,10 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
     private boolean dot_canMoved = false; /* 标记方向键不移动焦点 */
     private keystoneOnePoint mKeystone;
     private static int nowPoint = 0;
-
+    public final int MODE_ONEPOINT = 1;
+    public final int MODE_TWOPOINT = 0;
+    public final int MODE_UNKOWN = -1;
+    public final String ORIGIN_POINT = "0,0";
     protected static SharedPreferences prefsDotValue;
 
     private TypedArray tyar;
@@ -77,15 +80,19 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         });
         initView();
         nowPoint = 0;
-        mKeystone = new keystoneOnePoint(this);
-        SharedPreferences prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
-        int mode = prefs.getInt("mode",0);
 
-        if(mode == 1){
-            mKeystone.restoreKeystone();
+        SharedPreferences prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
+        int mode = prefs.getInt("mode",MODE_UNKOWN);
+        Log.d("SinglePoint", "TrapezoidalSinglePointActivity mode: "+mode);
+        if(mode == MODE_TWOPOINT || mode == MODE_UNKOWN){
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("mode",0);
+            editor.putInt("mode",MODE_ONEPOINT);
             editor.apply();
+            mKeystone = new keystoneOnePoint(this);
+            mKeystone.restoreKeystone();
+            resetView();
+        }else{
+            mKeystone = new keystoneOnePoint(this);
         }
     }
 
@@ -108,16 +115,16 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         text_left_down = (TextView) findViewById(R.id.tv_single_left_down);
         text_right_down = (TextView) findViewById(R.id.tv_single_right_down);
 
-        text_left_up.setTextColor(tyar.getColor(1,0));
-        text_right_up.setTextColor(tyar.getColor(1,0));
-        text_left_down.setTextColor(tyar.getColor(1,0));
-        text_right_down.setTextColor(tyar.getColor(1,0));
+//        text_left_up.setTextColor(tyar.getColor(1,0));
+//        text_right_up.setTextColor(tyar.getColor(1,0));
+//        text_left_down.setTextColor(tyar.getColor(1,0));
+//        text_right_down.setTextColor(tyar.getColor(1,0));
         //读取数据
         prefsDotValue = this.getSharedPreferences("single_text_value",MODE_PRIVATE);
-        text_left_up.setText(prefsDotValue.getString("text_left_up","0"));
-        text_right_up.setText(prefsDotValue.getString("text_right_up","0"));
-        text_left_down.setText(prefsDotValue.getString("text_left_down","0"));
-        text_right_down.setText(prefsDotValue.getString("text_right_down","0"));
+        text_left_up.setText(prefsDotValue.getString("text_left_up",ORIGIN_POINT));
+        text_right_up.setText(prefsDotValue.getString("text_right_up",ORIGIN_POINT));
+        text_left_down.setText(prefsDotValue.getString("text_left_down",ORIGIN_POINT));
+        text_right_down.setText(prefsDotValue.getString("text_right_down",ORIGIN_POINT));
 
 
         single_left_up.setOnFocusChangeListener(this);
@@ -162,7 +169,21 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
         text_left_down.setVisibility(ldVisible);
         text_right_down.setVisibility(rdVisible);
     }
-    @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
+
+    private void resetView(){
+        text_left_up.setText(ORIGIN_POINT);
+        saveTextValue("text_left_up",ORIGIN_POINT);
+
+        text_right_up.setText(ORIGIN_POINT);
+        saveTextValue("text_right_up",ORIGIN_POINT);
+
+        text_left_down.setText(ORIGIN_POINT);
+        saveTextValue("text_left_down",ORIGIN_POINT);
+
+        text_right_down.setText(ORIGIN_POINT);
+        saveTextValue("text_right_down",ORIGIN_POINT);
+    }
+	@SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus){
@@ -170,22 +191,22 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
                 case R.id.iv_single_left_up:
                     //焦点在左上
                     setImageResource(tyar.getDrawable(12),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected));
-                    setTextVisible(View.VISIBLE,View.GONE,View.GONE,View.GONE);
+                    //setTextVisible(View.VISIBLE,View.GONE,View.GONE,View.GONE);
                     break;
                 case R.id.iv_single_right_up:
                     //焦点在右上
                     setImageResource(getDrawable(R.drawable.unselected),tyar.getDrawable(12),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected));
-                    setTextVisible(View.GONE,View.VISIBLE,View.GONE,View.GONE);
+                    //setTextVisible(View.GONE,View.VISIBLE,View.GONE,View.GONE);
                     break;
                 case R.id.iv_single_left_down:
                     //焦点在左下
                     setImageResource(getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),tyar.getDrawable(12),getDrawable(R.drawable.unselected));
-                    setTextVisible(View.GONE,View.GONE,View.VISIBLE,View.GONE);
+                    //setTextVisible(View.GONE,View.GONE,View.VISIBLE,View.GONE);
                     break;
                 case R.id.iv_single_right_down:
                     //焦点在右下
                     setImageResource(getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),getDrawable(R.drawable.unselected),tyar.getDrawable(12));
-                    setTextVisible(View.GONE,View.GONE,View.GONE,View.VISIBLE);
+                    //setTextVisible(View.GONE,View.GONE,View.GONE,View.VISIBLE);
                     break;
             }
         }
@@ -271,14 +292,7 @@ public class TrapezoidalSinglePointActivity extends AppCompatActivity implements
                         return true;
 					case KeyEvent.KEYCODE_MENU:
                         mKeystone.restoreKeystone();
-                        text_left_up.setText("0");
-                        saveTextValue("text_left_up","0");
-                        text_right_up.setText("0");
-                        saveTextValue("text_right_up","0");
-                        text_left_down.setText("0");
-                        saveTextValue("text_left_down","0");
-                        text_right_down.setText("0");
-                        saveTextValue("text_right_down","0");
+                        resetView();
                         break;
                     case KeyEvent.KEYCODE_ENTER:
 						nowPoint++;

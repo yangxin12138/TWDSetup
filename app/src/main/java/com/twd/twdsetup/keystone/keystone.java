@@ -30,10 +30,10 @@ public abstract class keystone {
     public static Vertex vBottomLeft;
     public static Vertex vBottomRight;
 
+    public static Lcd lcd;
     protected static float vZoom;
     //protected static final float vZoomRange = (1/2);
-    protected static int mStepX = 5;
-    protected static int mStepY = 3;
+
 
     protected static int lcdValidWidth_top ;
     protected static int lcdValidWidth_bottom ;
@@ -47,6 +47,7 @@ public abstract class keystone {
         mContext = context;
         getKeystoneOrigin(context);
         getInitKeystone(context);
+        lcd = new Lcd(context);
     }
 
     public void getKeystoneOrigin(Context context){
@@ -177,10 +178,10 @@ public abstract class keystone {
         float y = vTopLeftOrigin.getY() - zoomy - movey;
 */
         float zoomx = lcdValidWidth_top*vZoom/10/2/2;
-        float movex = vTopLeft.getX()*mStepX*(20-vZoom)/20;
+        float movex = vTopLeft.getX()*lcd.getStepX()*(20-vZoom)/20;
         float x = vTopLeftOrigin.getX() + (zoomx + movex);
         float zoomy = lcdValidHeight_left*vZoom/10/2/2;
-        float movey = vTopLeft.getY()*mStepY*(20-vZoom)/20;
+        float movey = vTopLeft.getY()*lcd.getStepY()*(20-vZoom)/20;
         float y = vTopLeftOrigin.getY() - (zoomy + movey);
         Log.d(TAG, "setTopLeft: "+x+","+y+",zoom:"+vZoom+"origin("+vTopLeftOrigin.getX()+","+vTopLeftOrigin.getY()
                 +"),zoom("+zoomx+","+zoomy+"),move("+movex+","+movey+")");
@@ -195,12 +196,12 @@ public abstract class keystone {
         float movey = vTopRight.getY()*mStepY*(10-vZoom)/10;
         float y = vTopRightOrigin.getY() - zoomy - movey;*/
         float zoomx = lcdValidWidth_top*vZoom/10/2/2;
-        float movex = vTopRight.getX()*mStepX*(20-vZoom)/20;
+        float movex = vTopRight.getX()*lcd.getStepX()*(20-vZoom)/20;
         float x = vTopRightOrigin.getX() - (zoomx + movex);
         float zoomy = lcdValidHeight_right*vZoom/10/2/2;
-        float movey = vTopRight.getY()*mStepY*(20-vZoom)/20;
+        float movey = vTopRight.getY()*lcd.getStepY()*(20-vZoom)/20;
         float y = vTopRightOrigin.getY() - (zoomy + movey);
-        Log.d(TAG, "setTopRight: "+x+","+y+",zoom:"+vZoom+"origin("+vTopLeftOrigin.getX()+","+vTopLeftOrigin.getY()
+        Log.d(TAG, "setTopRight: "+x+","+y+",zoom:"+vZoom+"origin("+vTopRightOrigin.getX()+","+vTopRightOrigin.getY()
                 +"),zoom("+zoomx+","+zoomy+"),move("+movex+","+movey+")");
         SystemPropertiesUtils.setProperty(PROP_RT,x+","+y);
     }
@@ -213,12 +214,12 @@ public abstract class keystone {
         float movey = vBottomLeft.getY()*mStepY*(10-vZoom)/10;
         float y = vBottomLeftOrigin.getY() + zoomy + movey;*/
         float zoomx = lcdValidWidth_bottom*vZoom/10/2/2;
-        float movex = vBottomLeft.getX()*mStepX*(20-vZoom)/20;
+        float movex = vBottomLeft.getX()*lcd.getStepX()*(20-vZoom)/20;
         float x = vBottomLeftOrigin.getX() + (zoomx + movex);
         float zoomy = lcdValidHeight_left*vZoom/10/2/2;
-        float movey = vBottomLeft.getY()*mStepY*(20-vZoom)/20;
+        float movey = vBottomLeft.getY()*lcd.getStepY()*(20-vZoom)/20;
         float y = vBottomLeftOrigin.getY() + (zoomy + movey);
-        Log.d(TAG, "setBottomLeft: "+x+","+y+",zoom:"+vZoom+"origin("+vTopLeftOrigin.getX()+","+vTopLeftOrigin.getY()
+        Log.d(TAG, "setBottomLeft: "+x+","+y+",zoom:"+vZoom+"origin("+vBottomLeftOrigin.getX()+","+vBottomLeftOrigin.getY()
                 +"),zoom("+zoomx+","+zoomy+"),move("+movex+","+movey+")");
         SystemPropertiesUtils.setProperty(PROP_LB,x+","+y);
     }
@@ -230,12 +231,12 @@ public abstract class keystone {
         float movey = vBottomRight.getY()*mStepY*(10-vZoom)/10;
         float y = vBottomRightOrigin.getY() + zoomy + movey;*/
         float zoomx = lcdValidWidth_bottom*vZoom/10/2/2;
-        float movex = vBottomRight.getX()*mStepX*(20-vZoom)/20;
+        float movex = vBottomRight.getX()*lcd.getStepX()*(20-vZoom)/20;
         float x = vBottomRightOrigin.getX() - (zoomx + movex);
         float zoomy = lcdValidHeight_right*vZoom/10/2/2;
-        float movey = vBottomRight.getY()*mStepY*(20-vZoom)/20;
+        float movey = vBottomRight.getY()*lcd.getStepY()*(20-vZoom)/20;
         float y = vBottomRightOrigin.getY() + (zoomy + movey);
-        Log.d(TAG, "setBottomRight: "+x+","+y+",zoom:"+vZoom+"origin("+vTopLeftOrigin.getX()+","+vTopLeftOrigin.getY()
+        Log.d(TAG, "setBottomRight: "+x+","+y+",zoom:"+vZoom+"origin("+vBottomRightOrigin.getX()+","+vBottomRightOrigin.getY()
                 +"),zoom("+zoomx+","+zoomy+"),move("+movex+","+movey+")");
         SystemPropertiesUtils.setProperty(PROP_RB,x+","+y);
     }

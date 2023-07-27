@@ -29,9 +29,11 @@ public class SizeActivity extends AppCompatActivity implements View.OnFocusChang
     private TextView textView_level;
     private keystone mKeystone;
     protected static SharedPreferences prefs;
-    private TypedArray tyar;
-    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
 
+    String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
+    public final int MODE_ONEPOINT = 1;
+    public final int MODE_TWOPOINT = 0;
+    public final int MODE_UNKOWN = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate: theme_code:"+theme_code);
@@ -48,27 +50,18 @@ public class SizeActivity extends AppCompatActivity implements View.OnFocusChang
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_size);
-        tyar= this.getTheme().obtainStyledAttributes(new int[]{
-                R.attr.arrowBackSrc,//0
-                R.attr.textColor,//1
-                R.attr.trape_double_Src,//2
-                R.attr.trape_single_Src,//3
-                R.attr.size_src,//4
-                R.attr.projection_Src,//5
-                R.attr.unselFrameBG,//6
-                R.attr.selFrameBG,//7
-                R.attr.arrowSrc,//8
-                R.attr.backGround,//9
-                R.attr.itemSelected,//10
-                R.attr.projection_bg
-        });
+
         initView();
         prefs = this.getSharedPreferences("keystone_mode", Context.MODE_PRIVATE);
-        int mode = prefs.getInt("mode",0);
-        if(mode ==0){
+        int mode = prefs.getInt("mode",MODE_UNKOWN);
+        Log.d(TAG, "SizeActivity mode: "+mode);
+        if(mode ==MODE_TWOPOINT){
             mKeystone = new keystoneTwoPoint(this);
-        }else if(mode == 1){
+        }else if(mode == MODE_ONEPOINT){
             mKeystone = new keystoneOnePoint(this);
+        }else if (mode == MODE_UNKOWN){
+            mKeystone = new keystoneOnePoint(this);
+            mKeystone.restoreKeystone();
         }
 
     }
@@ -78,7 +71,7 @@ public class SizeActivity extends AppCompatActivity implements View.OnFocusChang
     private void initView(){
         seekBar_level = (SeekBar) findViewById(R.id.seekbar_level);
         textView_level = (TextView) findViewById(R.id.text_level);
-        textView_level.setTextColor(tyar.getColor(1,0));
+
 
         //初始化，读取seekbar状态
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);

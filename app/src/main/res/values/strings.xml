@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">TWDSetup</string>
+    <string name="projection_settings_title">Projection Settings</string>
+    <string name="TwoPointKeystone">U/D-L/R Trapezoidal Correction</string>
+    <string name="FourPointKeystone">Custom Trapezoidal Correction</string>
+    <string name="SizeAdjustment">Size��Adjustment</string>
+    <string name="projection_mode">Projection Mode</string>
+    <string name="size_adjustment_control_info">Left and right keys to zoom in size</string>
+    <string name="projection_mode＿pos_pos">Fixed and Front Projection</string>
+    <string name="projection_mode＿pos_neg">Fixed and Back Projection</string>
+    <string name="projection_mode＿neg_pos">Hanging and Front</string>
+    <string name="projection_mode＿neg_neg">Hanging and Back</string>
 </resources>

@@ -17,11 +17,11 @@
         android:id="@+id/title_projection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/projection_title_marginTop"
-        android:text="投影方式"
+        android:layout_marginStart="@dimen/main_title_marginStart"
+        android:layout_marginTop="@dimen/main_title_marginTop"
+        android:text="@string/projection_mode"
         android:textColor="?attr/textColor"
-        android:layout_marginStart="@dimen/projection_title_marginStart"
-        android:textSize="@dimen/projection_title_textSize"
+        android:textSize="@dimen/main_title_textSize"
         android:textStyle="normal" />
 
     <LinearLayout
@@ -37,27 +37,31 @@
             android:id="@+id/pro_pos_pos"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="?attr/unselFrameBG"
+            android:background="?btnBg"
             android:focusable="true">
 
             <!--正装正投-->
             <TextView
                 android:id="@+id/tv_pos_pos"
+                android:duplicateParentState="true"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/projection_tv_height"
-                android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
-                android:text="正装正投"
-                android:textColor="?attr/textColor"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:text="@string/projection_mode＿pos_pos"
+                android:textColor="?btnTextColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/sel_pos_pos"
+                android:duplicateParentState="true"
                 android:layout_width="@dimen/projection_iv_width"
                 android:layout_height="@dimen/projection_iv_height"
                 android:layout_marginStart="@dimen/projection_iv_marginStart"
-                android:layout_marginTop="@dimen/projection_iv_marginTop" />
+                android:layout_marginTop="@dimen/projection_iv_marginTop"
+                android:src="?icon_projection_selected"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
         <!--正装背投-->
@@ -65,27 +69,31 @@
             android:id="@+id/pro_pos_neg"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="?attr/unselFrameBG"
+            android:background="?btnBg"
             android:focusable="true"
             android:layout_marginTop="@dimen/projection_RL_marginTop">
 
             <TextView
                 android:id="@+id/tv_pos_neg"
+                android:duplicateParentState="true"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/projection_tv_height"
-                android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
-                android:text="正装背投"
-                android:textColor="?attr/textColor"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:text="@string/projection_mode＿pos_neg"
+                android:textColor="?btnTextColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/sel_pos_neg"
+                android:duplicateParentState="true"
                 android:layout_width="@dimen/projection_iv_width"
                 android:layout_height="@dimen/projection_iv_height"
                 android:layout_marginStart="@dimen/projection_iv_marginStart"
-                android:layout_marginTop="@dimen/projection_iv_marginTop" />
+                android:layout_marginTop="@dimen/projection_iv_marginTop"
+                android:src="?icon_projection_selected"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
         <!--吊装正投-->
@@ -93,27 +101,31 @@
             android:id="@+id/pro_neg_pos"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="?attr/unselFrameBG"
+            android:background="?btnBg"
             android:focusable="true"
             android:layout_marginTop="@dimen/projection_RL_marginTop">
 
             <TextView
                 android:id="@+id/tv_neg_pos"
+                android:duplicateParentState="true"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/projection_tv_height"
-                android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
-                android:text="吊装正投"
-                android:textColor="?attr/textColor"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:text="@string/projection_mode＿neg_pos"
+                android:textColor="?btnTextColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/sel_neg_pos"
+                android:duplicateParentState="true"
                 android:layout_width="@dimen/projection_iv_width"
                 android:layout_height="@dimen/projection_iv_height"
                 android:layout_marginStart="@dimen/projection_iv_marginStart"
-                android:layout_marginTop="@dimen/projection_iv_marginTop" />
+                android:layout_marginTop="@dimen/projection_iv_marginTop"
+                android:src="?icon_projection_selected"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
         <!--吊装背投-->
@@ -121,27 +133,31 @@
             android:id="@+id/pro_neg_neg"
             android:layout_width="@dimen/projection_RL_width"
             android:layout_height="@dimen/projection_RL_height"
-            android:background="?attr/unselFrameBG"
+            android:background="?btnBg"
             android:focusable="true"
             android:layout_marginTop="@dimen/projection_RL_marginTop">
 
             <TextView
                 android:id="@+id/tv_neg_neg"
+                android:duplicateParentState="true"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/projection_tv_height"
-                android:paddingTop="@dimen/projection_tv_paddingTop"
                 android:layout_marginLeft="@dimen/projection_tv_marginLeft"
-                android:text="吊装背投"
-                android:textColor="?attr/textColor"
+                android:paddingTop="@dimen/projection_tv_paddingTop"
+                android:text="@string/projection_mode＿neg_neg"
+                android:textColor="?btnTextColor"
                 android:textSize="@dimen/projection_tv_textSize"
                 android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/sel_neg_neg"
+                android:duplicateParentState="true"
                 android:layout_width="@dimen/projection_iv_width"
                 android:layout_height="@dimen/projection_iv_height"
                 android:layout_marginStart="@dimen/projection_iv_marginStart"
-                android:layout_marginTop="@dimen/projection_iv_marginTop" />
+                android:layout_marginTop="@dimen/projection_iv_marginTop"
+                android:src="?icon_projection_selected"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
     </LinearLayout>

@@ -22,7 +22,7 @@ import java.lang.reflect.Type;
  * 投影设置主页
  *
  */
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener , View.OnFocusChangeListener {
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener  {
     String theme_code = SystemPropertiesUtils.getPropertyColor("persist.sys.background_blue","0");
 
 
@@ -30,16 +30,17 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private TypedArray tyar;
-    ImageView iv_trapezoidal_double_point;
-    ImageView iv_trapezoidal_single_point;
-    ImageView iv_size;
-    ImageView iv_projection;
+    private ImageView iv_trapezoidal_double_point;
+    private ImageView iv_trapezoidal_single_point;
+    private ImageView iv_size;
+    private ImageView iv_projection;
 
-    TextView tv_trapezoidal_double_point;
-    TextView tv_trapezoidal_single_point;
-    TextView tv_size;
-    TextView tv_projection;
-    TextView tv_projection_small;
+
+    private TextView tv_trapezoidal_double_point;
+    private TextView tv_trapezoidal_single_point;
+    private TextView tv_size;
+    private TextView tv_projection;
+    private TextView tv_projection_small;
 
     ImageView arrow_trapezoidal_double_point;
     ImageView arrow_trapezoidal_single_point;
@@ -62,20 +63,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         tyar= this.getTheme().obtainStyledAttributes(new int[]{
-                R.attr.arrowBackSrc,//0
-                R.attr.textColor,//1
-                R.attr.trape_double_Src,//2
-                R.attr.trape_single_Src,//3
-                R.attr.size_src,//4
-                R.attr.projection_Src,//5
-                R.attr.unselFrameBG,//6
-                R.attr.selFrameBG,//7
-                R.attr.arrowSrc,//8
-                R.attr.backGround,//9
-                R.attr.itemSelected,//10
-                R.attr.projection_bg
-        });
+
         initView();
     }
 
@@ -115,24 +103,19 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         arrow_trapezoidal_single_point = findViewById(R.id.arrow_trapezoidal_single_point);
         arrow_size = findViewById(R.id.arrow_size);
         arrow_projection = findViewById(R.id.arrow_projection);
-
         /* 设置投影方式显示文字 根据mSharedPreferences中提取的值判断显示*/
-        tv_projection_small =  findViewById(R.id.tv_projection_small);
+        tv_projection_small = (TextView) findViewById(R.id.tv_projection_small);
         Log.i("投影方式：","pos_pos_check:"+pos_pos_check+",pos_neg_check:"+pos_neg_check+",neg_pos_check:"+neg_pos_check+",neg_neg_check:"+neg_neg_check);
-        if (pos_pos_check) tv_projection_small.setText("正装正投");
-        if (pos_neg_check) tv_projection_small.setText("正装背投");
-        if (neg_pos_check) tv_projection_small.setText("吊装正投");
-        if (neg_neg_check) tv_projection_small.setText("吊装背投");
+        if (pos_pos_check) tv_projection_small.setText(R.string.projection_mode＿pos_pos);
+        if (pos_neg_check) tv_projection_small.setText(R.string.projection_mode＿pos_neg);
+        if (neg_pos_check) tv_projection_small.setText(R.string.projection_mode＿neg_pos);
+        if (neg_neg_check) tv_projection_small.setText(R.string.projection_mode＿neg_neg);
         /* 设置监听器 */
         double_TrapezoidalRL.setOnClickListener(this);
         single_TrapezoidalRl.setOnClickListener(this);
         sizeRl.setOnClickListener(this);
         projectionRL.setOnClickListener(this);
 
-        double_TrapezoidalRL.setOnFocusChangeListener(this);
-        single_TrapezoidalRl.setOnFocusChangeListener(this);
-        sizeRl.setOnFocusChangeListener(this);
-        projectionRL.setOnFocusChangeListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -161,57 +144,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 startActivity(intent);
 //                Toast.makeText(this, "点击投影方式", Toast.LENGTH_SHORT).show();
                 break;
-        }
-    }
-
-    /* 聚焦监听 选中变红*/
-    @SuppressLint("ResourceType")
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            v.setBackground(tyar.getDrawable(7));
-            if (theme_code.equals("0") || theme_code.equals("2")){
-                if (v.getId() == R.id.trapezoidal_double_point){
-                    iv_trapezoidal_double_point.setImageResource(R.drawable.icon_trapezoidal_double_point);
-                    tv_trapezoidal_double_point.setTextColor(getResources().getColor(R.color.black));
-                    arrow_trapezoidal_double_point.setImageResource(R.drawable.arrow);
-                } else if (v.getId() == R.id.trapezoidal_single_point) {
-                    iv_trapezoidal_single_point.setImageResource(R.drawable.icon_trapezoidal_single_point);
-                    tv_trapezoidal_single_point.setTextColor(getResources().getColor(R.color.black));
-                    arrow_trapezoidal_single_point.setImageResource(R.drawable.arrow);
-                } else if (v.getId() == R.id.size) {
-                    iv_size.setImageResource(R.drawable.icon_size_color);
-                    tv_size.setTextColor(getResources().getColor(R.color.black));
-                    arrow_size.setImageResource(R.drawable.arrow);
-                } else if (v.getId() == R.id.projection) {
-                    iv_projection.setImageResource(R.drawable.icon_projection_color);
-                    tv_projection.setTextColor(getResources().getColor(R.color.black));
-                    tv_projection_small.setTextColor(getResources().getColor(R.color.black));
-                    arrow_projection.setImageResource(R.drawable.arrow);
-                }
-            }
-        } else {
-            v.setBackground(tyar.getDrawable(6));
-            if (theme_code.equals("0") || theme_code.equals("2")){
-                if (v.getId() == R.id.trapezoidal_double_point){
-                    iv_trapezoidal_double_point.setImageResource(R.drawable.icon_trapezoidal_double_point_white);
-                    tv_trapezoidal_double_point.setTextColor(getResources().getColor(R.color.white));
-                    arrow_trapezoidal_double_point.setImageResource(R.drawable.arrow_white);
-                } else if (v.getId() == R.id.trapezoidal_single_point) {
-                    iv_trapezoidal_single_point.setImageResource(R.drawable.icon_trapezoidal_single_point_white);
-                    tv_trapezoidal_single_point.setTextColor(getResources().getColor(R.color.white));
-                    arrow_trapezoidal_single_point.setImageResource(R.drawable.arrow_white);
-                } else if (v.getId() == R.id.size) {
-                    iv_size.setImageResource(R.drawable.icon_size_white);
-                    tv_size.setTextColor(getResources().getColor(R.color.white));
-                    arrow_size.setImageResource(R.drawable.arrow_white);
-                } else if (v.getId() == R.id.projection) {
-                    iv_projection.setImageResource(R.drawable.icon_projection_white);
-                    tv_projection.setTextColor(getResources().getColor(R.color.white));
-                    tv_projection_small.setTextColor(getResources().getColor(R.color.white));
-                    arrow_projection.setImageResource(R.drawable.arrow_white);
-                }
-            }
         }
     }
 

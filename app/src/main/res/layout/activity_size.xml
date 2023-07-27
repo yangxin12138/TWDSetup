@@ -32,16 +32,18 @@
         android:text="level:0"
         android:textSize="@dimen/size_textLevel_textSize"
         android:textStyle="bold"
+        android:textColor="?textColor"
         android:layout_below="@+id/seekbar_level"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/size_textLevel_marginTop" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="左右键缩放尺寸"
         android:layout_below="@+id/text_level"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textColor="?attr/textColor"
-        android:textSize="@dimen/size_text_textSize"/>
+        android:text="@string/size_adjustment_control_info"
+	    android:textColor="?textColor"
+        android:textSize="@dimen/size_text_textSize"
+        android:textStyle="bold" />
 </RelativeLayout>

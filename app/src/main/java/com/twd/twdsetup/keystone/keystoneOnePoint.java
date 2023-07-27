@@ -11,10 +11,8 @@ public class keystoneOnePoint extends keystone{
     private static final String TAG = "keystoneOnePoint";
     protected static Context mContext;
 
-    protected static final int _mStepX = 4;
-    protected static final int _mStepY = 3;
-    protected static final int maxXStep = 50;
-    protected static final int maxYStep = 50;
+    protected static final int maxXStep = 100;
+    protected static final int maxYStep = 100;
 
     public keystoneOnePoint(Context context){
         super(context);
@@ -27,9 +25,6 @@ public class keystoneOnePoint extends keystone{
 
         vBottomLeft.setMaxX(maxXStep);vBottomLeft.setMaxY(maxYStep);
         vBottomRight.setMaxX(maxXStep);vBottomRight.setMaxY(maxYStep);
-        mStepX = _mStepX;
-        mStepY = _mStepY;
-
     }
 
     public String getOnePointInfo(int point){
@@ -64,7 +59,7 @@ public class keystoneOnePoint extends keystone{
             default:
                 break;
         }
-        updatePoint(point);
+        updatePoint(4);//updatePoint(point);
         savePoint(point);
         update();
     }
@@ -85,7 +80,7 @@ public class keystoneOnePoint extends keystone{
             default:
                 break;
         }
-        updatePoint(point);
+        updatePoint(4);//updatePoint(point);
         savePoint(point);
         update();
     }
@@ -106,7 +101,7 @@ public class keystoneOnePoint extends keystone{
             default:
                 break;
         }
-        updatePoint(point);
+        updatePoint(4);//updatePoint(point);
         savePoint(point);
         update();
     }
@@ -127,7 +122,7 @@ public class keystoneOnePoint extends keystone{
             default:
                 break;
         }
-        updatePoint(point);
+        updatePoint(4);//updatePoint(point);
         savePoint(point);
         update();
     }

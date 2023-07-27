@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TWDSetup</string>
+    <string name="projection_settings_title">投影设置</string>
+    <string name="TwoPointKeystone">两点梯形校正</string>
+    <string name="FourPointKeystone">四点梯形校正</string>
+    <string name="SizeAdjustment">尺寸调节</string>
+    <string name="projection_mode">投影方式</string>
+    <string name="size_adjustment_control_info">左右键缩放尺寸</string>
+    <string name="projection_mode＿pos_pos">正装正投</string>
+    <string name="projection_mode＿pos_neg">正装背投</string>
+    <string name="projection_mode＿neg_pos">吊装正投</string>
+    <string name="projection_mode＿neg_neg">吊装背投</string>
+</resources>

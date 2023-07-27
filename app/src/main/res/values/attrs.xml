@@ -15,4 +15,12 @@
     <attr name="arrow_horizontal" format="reference"/>
     <attr name="arrow_vertical" format="reference"/>
     <attr name="trape_dots" format="reference"/>
+    <attr name="btnTextColor" format="reference" />
+    <attr name="btnBg" format="reference" />
+    <attr name="icon_trape_double" format="reference" />
+    <attr name="icon_trape_single" format="reference" />
+    <attr name="icon_size" format="reference" />
+    <attr name="icon_projection" format="reference" />
+    <attr name="icon_arrow" format="reference" />
+    <attr name="icon_projection_selected" format="reference" />
 </resources>
